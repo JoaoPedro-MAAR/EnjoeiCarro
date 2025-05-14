@@ -6,6 +6,7 @@ public class Fabricante {
 
 	public Fabricante(String nome) {
 		this.setNome(nome);
+		this.modelos = new ArrayList<Modelo>();
 	}
 
 	public void addModelo(Modelo model) {

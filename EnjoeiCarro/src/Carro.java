@@ -5,15 +5,10 @@ public class Carro {
 	private int ano;
 	private Double valor;
 
-	public Carro(String placa, int ano, Double valor) {
-		this.placa = placa;
-		this.ano = ano;
-		this.valor = valor;
-	}
 
 	public Carro(String placa, int ano, Double valor, Modelo modelo) {
 		this.placa = placa;
-		this.modelo = modelo;
+		modelo.addCarro(this);
 		this.ano = ano;
 		this.valor = valor;
 	}

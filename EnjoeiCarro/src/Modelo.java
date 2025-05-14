@@ -7,14 +7,10 @@ public class Modelo {
 
 	public Modelo(String nome, Fabricante fabricante) {
 		this.nome = nome;
-		this.fabricante = fabricante;
+		fabricante.addModelo(this);
 		this.lista_de_carros = new ArrayList<Carro>();
 	}
 
-	public Modelo(String nome) {
-		this.nome = nome;
-		this.lista_de_carros = new ArrayList<Carro>();
-	}
 
 	public void addCarro(Carro carro) {
 		lista_de_carros.add(carro);
