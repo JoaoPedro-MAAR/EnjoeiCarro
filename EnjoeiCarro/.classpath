@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/projetoPOO-2024-2-loja-atualizado/projetoPOO-2024-2-loja-atualizado/lib/db4o-8.1.249.16099-core-java5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
