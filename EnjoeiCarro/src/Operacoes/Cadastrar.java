@@ -5,7 +5,7 @@ import com.db4o.ObjectContainer;
 import Classes.Carro;
 import Classes.Fabricante;
 import Classes.Modelo;
-import appconsole.COCo;
+
 
 
 public class Cadastrar {
