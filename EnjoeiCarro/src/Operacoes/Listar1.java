@@ -32,5 +32,6 @@ public class Listar1 {
 		q.constrain(Carro.class);
 		List<Carro> carros = q.execute();
 		carros.stream().forEach(item -> System.out.println(item));
+		Util.desconectar();
 	}
 }
