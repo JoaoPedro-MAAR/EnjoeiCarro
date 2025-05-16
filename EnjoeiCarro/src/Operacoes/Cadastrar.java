@@ -1,29 +1,55 @@
 package Operacoes;
 
-import Classes.Carro;
+import com.db4o.ObjectContainer;
 
+import Classes.Carro;
 import Classes.Fabricante;
 import Classes.Modelo;
-
-
-import com.db4o.*;
-
-
-
+import appconsole.COCo;
 
 
 public class Cadastrar {
+	private static ObjectContainer manager;
+	
 	public static void main(String[] args) {
-
+		
+		
+		try {
+			manager = Util.conectarBanco();
+		} catch (Exception e) {
+			System.out.println("Erro ao conectar no banco de dados: " + e.getMessage());
+			return;
+		}
+		System.out.println("conectando ao banco");
+		manager = Util.conectarBanco();
+		System.out.println("conectou ao banco");
+		
 		Fabricante f1 = new Fabricante("Toyota");
+		manager.store(f1);
+		manager.commit();
 		Fabricante f2 = new Fabricante("Ford");
+		manager.store(f2);
+		manager.commit();
 		Fabricante f3 = new Fabricante("Chevrolet");
+		manager.store(f3);
+		manager.commit();
 
 		Modelo m1 = new Modelo("Corolla", f1);
+		
 		Modelo m2 = new Modelo("Hilux", f1);
 		Modelo m3 = new Modelo("Fiesta", f2);
 		Modelo m4 = new Modelo("Focus", f2);
 		Modelo m5 = new Modelo("Onix", f3);
+		manager.store(m1);
+		manager.commit();
+		manager.store(m2);
+		manager.commit();
+		manager.store(m3);
+		manager.commit();
+		manager.store(m4);
+		manager.commit();
+		manager.store(m5);
+		manager.commit();
 		
 		
 		Carro c1 = new Carro("ABC1234", 2020, 80000.0, m1);
@@ -36,6 +62,30 @@ public class Cadastrar {
 		Carro c8 = new Carro("VWX9012", 2021, 60000.0, m5);
 		Carro c9 = new Carro("YZA3456", 2020, 58000.0, m5);
 		Carro c10 = new Carro("BCD7890", 2019, 55000.0,m5);
+		manager.store(c1);
+		manager.commit();
+		manager.store(c2);
+		manager.commit();
+		manager.store(c3);
+		manager.commit();
+		manager.store(c4);
+		manager.commit();
+		manager.store(c5);
+		manager.commit();
+		manager.store(c6);
+		manager.commit();
+		manager.store(c7);
+		manager.commit();
+		manager.store(c8);
+		manager.commit();
+		manager.store(c9);
+		manager.commit();
+		manager.store(c10);
+		manager.commit();
+		
+		Util.desconectar();
+		System.out.println("cadastrou os fabricantes, modelos e carros");
+		
 
 	}
 }
