@@ -11,19 +11,28 @@ public class Fabricante {
 	}
 
 	public void addModelo(Modelo model) {
-		getModelos().add(model);
+		modelos.add(model);
 		model.setFabricante(this);
 	}
 
 	public void rmvModelo(Modelo model) {
-		getModelos().remove(model);
+		modelos.remove(model);
 		model.setFabricante(null);
 	}
 
 	public ArrayList<Modelo> getModelos() {
 		return modelos;
 	}
-
+	
+	public Modelo LocalizarModelo(String nome) {
+		for (Modelo m : modelos){
+			if (m.getNome() == nome)
+				return m;
+			
+		}
+		return null;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
