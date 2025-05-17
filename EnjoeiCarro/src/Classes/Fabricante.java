@@ -11,6 +11,9 @@ public class Fabricante {
 	}
 
 	public void addModelo(Modelo model) {
+		Fabricante f = model.getFabricante();
+		if (f!=null)
+			f.rmvModelo(model);
 		modelos.add(model);
 		model.setFabricante(this);
 	}
@@ -40,4 +43,25 @@ public class Fabricante {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Override
+	public String toString() {
+		String modelNome = "";
+		for (Modelo m : modelos) {
+			if(m == null) {
+				continue;
+			}
+			modelNome = modelNome + m.getNome()+", " ;
+		}
+		
+	    if (modelNome.length() > 0) {
+	    	modelNome = modelNome.substring(0, modelNome.length() - 2);
+	    };
+		
+	
+
+		
+		return "Nome: "+nome+", Modelos: "+modelNome;
+	}
+	
 }

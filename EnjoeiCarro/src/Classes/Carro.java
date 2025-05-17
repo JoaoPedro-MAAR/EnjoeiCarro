@@ -41,5 +41,8 @@ public class Carro {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-
+	@Override
+	public String toString() {
+		return  "Placa:"+placa+", Ano: "+ano+", Valor: "+valor+", Modelo: "+(modelo!=null? getModelo().getNome():"N/A");   }
 }
+

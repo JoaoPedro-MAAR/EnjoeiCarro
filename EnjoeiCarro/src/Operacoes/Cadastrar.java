@@ -30,8 +30,7 @@ public class Cadastrar {
 		Fabricante f3 = new Fabricante("Chevrolet");
 
 
-		Modelo m1 = new Modelo("Corolla", f1);
-		
+		Modelo m1 = new Modelo("Corolla", f1);	
 		Modelo m2 = new Modelo("Hilux", f1);
 		Modelo m3 = new Modelo("Fiesta", f2);
 		Modelo m4 = new Modelo("Focus", f2);

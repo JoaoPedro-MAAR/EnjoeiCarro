@@ -25,7 +25,7 @@ public class Apagar {
 		List<Modelo> resultado = q.execute();
 		if (resultado.size() > 0) {
 			Modelo fiesta = resultado.getFirst();
-			// remover todos os empregados da loja
+
 			ArrayList<Carro> carros = fiesta.getLista_de_carros();
 			if (carros != null) {
 				for (Carro carro : carros) {
