@@ -14,6 +14,10 @@ public class Modelo {
 
 
 	public void addCarro(Carro carro) {
+		
+		Modelo m = carro.getModelo();
+		if (m != null)
+			m.rmvCarro(carro);
 		lista_de_carros.add(carro);
 		carro.setModelo(this);
 
@@ -32,6 +36,16 @@ public class Modelo {
 	public ArrayList<Carro> getLista_de_carros() {
 		return lista_de_carros;
 	}
+	
+	public Carro localizarCarro(String placa) {
+		placa = placa.toLowerCase();
+		for (Carro c : lista_de_carros){
+			if (c.getPlaca() == placa)
+				return c;
+						
+		}
+		return null;
+	}
 
 	public Fabricante getFabricante() {
 		return fabricante;
@@ -44,5 +58,23 @@ public class Modelo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	@Override
+	public String toString() {
+	    String carrosNome = "";
+	    for (Carro c : lista_de_carros) {
+	        carrosNome= carrosNome+c.getPlaca()+", ";
+	    }
+	    // Remove a última vírgula e espaço, se existirem carros
+	    if (carrosNome.length() > 0) {
+	        carrosNome = carrosNome.substring(0, carrosNome.length() - 2);
+	    };
+		
+		
+		
+	    return "Nome: " + nome + ", Fabricante: " + (fabricante != null ? fabricante.getNome() : "N/A") + 
+	            ", Carros: [" + carrosNome + "]";
+	 }
+	}
 
-}
+

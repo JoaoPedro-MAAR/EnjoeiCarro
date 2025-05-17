@@ -7,7 +7,6 @@ import Classes.Fabricante;
 import Classes.Modelo;
 
 
-
 public class Cadastrar {
 	private static ObjectContainer manager;
 	
@@ -25,31 +24,18 @@ public class Cadastrar {
 		System.out.println("conectou ao banco");
 		
 		Fabricante f1 = new Fabricante("Toyota");
-		manager.store(f1);
-		manager.commit();
-		Fabricante f2 = new Fabricante("Ford");
-		manager.store(f2);
-		manager.commit();
-		Fabricante f3 = new Fabricante("Chevrolet");
-		manager.store(f3);
-		manager.commit();
 
-		Modelo m1 = new Modelo("Corolla", f1);
-		
+		Fabricante f2 = new Fabricante("Ford");
+
+		Fabricante f3 = new Fabricante("Chevrolet");
+
+
+		Modelo m1 = new Modelo("Corolla", f1);	
 		Modelo m2 = new Modelo("Hilux", f1);
 		Modelo m3 = new Modelo("Fiesta", f2);
 		Modelo m4 = new Modelo("Focus", f2);
 		Modelo m5 = new Modelo("Onix", f3);
-		manager.store(m1);
-		manager.commit();
-		manager.store(m2);
-		manager.commit();
-		manager.store(m3);
-		manager.commit();
-		manager.store(m4);
-		manager.commit();
-		manager.store(m5);
-		manager.commit();
+
 		
 		
 		Carro c1 = new Carro("ABC1234", 2020, 80000.0, m1);

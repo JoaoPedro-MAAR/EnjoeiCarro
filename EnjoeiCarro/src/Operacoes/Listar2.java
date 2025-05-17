@@ -35,5 +35,6 @@ public class Listar2 {
 		List<Carro> resultadosCA = q3.execute();
 		for(Carro c : resultadosCA)
 		System.out.println(c);
+		Util.desconectar();
 	}
 }
