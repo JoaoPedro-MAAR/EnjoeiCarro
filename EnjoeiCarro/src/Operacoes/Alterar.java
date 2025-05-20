@@ -66,9 +66,9 @@ public class Alterar {
 		System.out.println(Focus);
 		manager.store(Focus);
 		manager.commit();
-		manager.store(x);
+		manager.delete(x);
 		manager.commit();
-		System.out.println("O carro " + x.getPlaca() + " foi removido do modelo " + Focus.getNome());
+		System.out.println("O carro " + x.getPlaca() + " foi removido do modelo " + Focus.getNome()+" e o carro foi excluido do banco");
 		
 		
 		
