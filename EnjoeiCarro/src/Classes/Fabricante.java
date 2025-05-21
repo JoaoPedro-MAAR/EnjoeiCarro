@@ -11,9 +11,6 @@ public class Fabricante {
 	}
 
 	public void addModelo(Modelo model) {
-		Fabricante f = model.getFabricante();
-		if (f!=null)
-			f.rmvModelo(model);
 		modelos.add(model);
 		model.setFabricante(this);
 	}
