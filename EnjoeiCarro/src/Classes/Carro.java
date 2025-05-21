@@ -9,6 +9,7 @@ public class Carro {
 
 	public Carro(String placa, int ano, Double valor, Modelo modelo) {
 		this.placa = placa;
+		setModelo(modelo);
 		modelo.addCarro(this);
 		this.ano = ano;
 		this.valor = valor;
@@ -26,7 +27,7 @@ public class Carro {
 		return ano;
 	}
 
-	Modelo getModelo() {
+	public Modelo getModelo() {
 		return modelo;
 	}
 
