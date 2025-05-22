@@ -40,32 +40,36 @@ public class Cadastrar {
 		
 		Carro c1 = new Carro("ABC1234", 2020, 80000.0, m1);
 		Carro c2 = new Carro("DEF5678", 2019, 75000.0, m1);
+
 		Carro c3 = new Carro("GHI9012", 2021, 120000.0, m2);
+
 		Carro c4 = new Carro("JKL3456", 2018, 65000.0, m3);
+
 		Carro c5 = new Carro("MNO7890", 2020, 70000.0, m3);
+
 		Carro c6 = new Carro("PQR1234", 2022, 90000.0, m4);
 		Carro c7 = new Carro("STU5678", 2023, 95000.0, m4);
 		Carro c8 = new Carro("VWX9012", 2021, 60000.0, m5);
 		Carro c9 = new Carro("YZA3456", 2020, 58000.0, m5);
 		Carro c10 = new Carro("BCD7890", 2019, 55000.0,m5);
 		manager.store(c1);
-		manager.commit();
+
 		manager.store(c2);
-		manager.commit();
+
 		manager.store(c3);
-		manager.commit();
+
 		manager.store(c4);
-		manager.commit();
+
 		manager.store(c5);
-		manager.commit();
+
 		manager.store(c6);
-		manager.commit();
+
 		manager.store(c7);
-		manager.commit();
+
 		manager.store(c8);
-		manager.commit();
+
 		manager.store(c9);
-		manager.commit();
+
 		manager.store(c10);
 		manager.commit();
 		
