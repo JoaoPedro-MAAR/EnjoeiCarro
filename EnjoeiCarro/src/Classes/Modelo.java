@@ -8,6 +8,7 @@ public class Modelo {
 
 	public Modelo(String nome, Fabricante fabricante) {
 		this.nome = nome;
+		setFabricante(fabricante);
 		fabricante.addModelo(this);
 		this.lista_de_carros = new ArrayList<Carro>();
 	}
@@ -15,9 +16,6 @@ public class Modelo {
 
 	public void addCarro(Carro carro) {
 		
-		Modelo m = carro.getModelo();
-		if (m != null)
-			m.rmvCarro(carro);
 		lista_de_carros.add(carro);
 		carro.setModelo(this);
 
