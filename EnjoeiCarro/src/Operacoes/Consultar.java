@@ -119,23 +119,6 @@ public class Consultar {
 
 }
 
-class FiltroFabricantePorNome implements Evaluation {
-	private String nomeBuscado;
-
-	public FiltroFabricantePorNome(String nomeBuscado) {
-		this.nomeBuscado = nomeBuscado;
-	}
-
-	@Override
-	public void evaluate(Candidate candidate) {
-		Fabricante fabricante = (Fabricante) candidate.getObject();
-		if (fabricante.getNome() != null && fabricante.getNome().equalsIgnoreCase(nomeBuscado)) {
-			candidate.include(true);
-		} else {
-			candidate.include(false);
-		}
-	}
-}
 
 class FiltroBuscarModelosComMaisdeNcarros implements Evaluation {
 	private Integer n;
