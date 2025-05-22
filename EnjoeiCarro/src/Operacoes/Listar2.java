@@ -15,21 +15,21 @@ public class Listar2 {
 	public static void main(String[] args) {
 		manager = Util.conectarBanco();
 
-		System.out.println("Fabricantes:");
+		System.out.println("Fabricantes:\n");
 		Query q1 = manager.query();
 		q1.constrain(Fabricante.class);
 		List<Fabricante> resultados = q1.execute();
 		for(Fabricante f : resultados)
 		System.out.println(f);
 
-		System.out.println("Modelo:");
+		System.out.println("\nModelo:\n");
 		Query q2 = manager.query();
 		q2.constrain(Modelo.class);
 		List<Modelo> resultadosMo = q2.execute();
 		for(Modelo m : resultadosMo)
 		System.out.println(m);
 
-		System.out.println("Carros:");
+		System.out.println("\nCarros:\n");
 		Query q3 = manager.query();
 		q3.constrain(Carro.class);
 		List<Carro> resultadosCA = q3.execute();

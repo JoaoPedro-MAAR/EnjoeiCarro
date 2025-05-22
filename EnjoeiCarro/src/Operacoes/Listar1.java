@@ -15,19 +15,19 @@ public class Listar1 {
 	public static void main(String[] args) {
 		manager = Util.conectarBanco();
 
-		System.out.println("Fabricantes:");
+		System.out.println("Fabricantes:\n");
 		Query q = manager.query();
 		q.constrain(Fabricante.class);
 		List<Fabricante> fabricantes = q.execute();
 		fabricantes.stream().forEach(item -> System.out.println(item));
 
-		System.out.println("Modelo:");
+		System.out.println("\nModelo:\n");
 		q = manager.query();
 		q.constrain(Modelo.class);
 		List<Modelo> modelos = q.execute();
 		modelos.stream().forEach(item -> System.out.println(item));
 
-		System.out.println("Carros:");
+		System.out.println("\nCarros:\n");
 		q = manager.query();
 		q.constrain(Carro.class);
 		List<Carro> carros = q.execute();
