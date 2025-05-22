@@ -46,7 +46,7 @@ public class Consultar {
 			System.out.println("Digite o ano para procurar pelos carros: ");
 			x = scanner.nextInt();
 			if (x < 0) {
-				System.out.println("Numero invalido bote dnv, tem que ser maior que zero");
+				System.out.println("\nNumero invalido bote dnv, tem que ser maior que zero");
 				continue;
 			}
 			break;
@@ -69,7 +69,7 @@ public class Consultar {
 		/* Segunda consulta: listar todos os carros de um fabricante */
 		scanner.nextLine();
 		String nome = " ";
-		System.out.print("Digite o nome do fabricante: ");
+		System.out.print("\nDigite o nome do fabricante: ");
 		nome = scanner.nextLine().trim();
 
 		q = manager.query();
@@ -108,7 +108,7 @@ public class Consultar {
 			s = s.substring(0, s.length() - 2);
 		if (s.length() == 0)
 			s = "N/A";
-		System.out.println("Esse(s) modelo(s) tem mais de " + n + " carros: " + s);
+		System.out.println("\nEsse(s) modelo(s) tem mais de " + n + " carros: " + s);
 
 		scanner.close();
 	}
