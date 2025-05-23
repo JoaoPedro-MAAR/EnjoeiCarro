@@ -9,7 +9,7 @@ import Classes.Carro;
 import Classes.Fabricante;
 import Classes.Modelo;
 
-public class Listar2 {
+public class Listar {
 	private static ObjectContainer manager;
 	
 	public static void main(String[] args) {
