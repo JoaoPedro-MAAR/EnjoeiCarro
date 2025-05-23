@@ -25,11 +25,11 @@ public class Carro {
 	}
 
 	public void setCor(String cor){
-		this.cor = cor
+		this.cor = cor;
 	}
 
 	public String getCor(){
-		return this.cor
+		return this.cor;
 	}
 
 	public int getAno() {
