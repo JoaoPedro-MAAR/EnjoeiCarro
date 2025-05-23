@@ -24,6 +24,14 @@ public class Carro {
 		this.valor = valor;
 	}
 
+	public void setCor(String cor){
+		this.cor = cor
+	}
+
+	public String getCor(){
+		return this.cor
+	}
+
 	public int getAno() {
 		return ano;
 	}
