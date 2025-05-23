@@ -23,7 +23,7 @@ public class Alterar {
 		if(modelos.size()>0) { 
 			Modelo onix = modelos.getFirst();
 			System.out.println("\nOnix antes de adicionar novo carro: \n"+onix);
-			Carro dpp = new Carro("DPP2222", 2018, 120000.0, onix);
+			Carro dpp = new Carro("DPP2222", 2018, 120000.0,"Laranja", onix);
 			System.out.println("\nCarro que vai ser adicionado: "+dpp);
 			System.out.println("\nOnix depois de adicionar novo carro: \n"+onix);
 			

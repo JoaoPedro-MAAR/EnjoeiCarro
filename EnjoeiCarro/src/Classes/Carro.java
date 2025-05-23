@@ -5,14 +5,15 @@ public class Carro {
 	private Modelo modelo;
 	private int ano;
 	private Double valor;
+	private String cor;
 
 
-	public Carro(String placa, int ano, Double valor, Modelo modelo) {
+	public Carro(String placa, int ano, Double valor,String cor, Modelo modelo) {
 		this.placa = placa;
-		setModelo(modelo);
 		modelo.addCarro(this);
 		this.ano = ano;
 		this.valor = valor;
+		this.cor = cor;
 	}
 
 	public Double getValor() {
@@ -44,6 +45,6 @@ public class Carro {
 	}
 	@Override
 	public String toString() {
-		return  "Placa:"+placa+", Ano: "+ano+", Valor: "+valor+", Modelo: "+(modelo!=null? getModelo().getNome():"N/A");   }
+		return  "Placa: "+placa+", Ano: "+ano+", Valor: "+valor+", Cor: "+cor+", Modelo: "+(modelo!=null? getModelo().getNome():"N/A");   }
 }
 
