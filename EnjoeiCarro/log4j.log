@@ -1,0 +1,32 @@
+23:15:59,346 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+23:15:59,455  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+23:15:59,512  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
+23:15:59,552 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+23:15:59,554  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+23:15:59,754  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+23:16:00,000  WARN deprecation:153 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+23:16:00,019  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/agenda]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+23:16:01,044  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+23:16:01,066  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@42ef042a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+23:16:01,278 DEBUG Util:26 - -------- conectou banco agenda
+23:16:01,624 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome='Onix'
+23:16:01,655 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+23:16:01,657 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+23:16:01,687 DEBUG SQL:135 - insert into Carro (ano,cor,modelo_id,placa,valor) values (?,?,?,?,?)
+23:16:01,689 TRACE bind:24 - binding parameter (1:INTEGER) <- [2022]
+23:16:01,689 TRACE bind:24 - binding parameter (2:VARCHAR) <- [Laranja]
+23:16:01,689 TRACE bind:24 - binding parameter (3:INTEGER) <- [5]
+23:16:01,689 TRACE bind:24 - binding parameter (4:VARCHAR) <- [DP2222]
+23:16:01,689 TRACE bind:24 - binding parameter (5:DOUBLE) <- [120000.0]
+23:16:01,705 DEBUG SQL:135 - select l1_0.modelo_id,l1_0.id,l1_0.ano,l1_0.cor,l1_0.placa,l1_0.valor from Carro l1_0 where l1_0.modelo_id=?
+23:16:01,705 TRACE bind:24 - binding parameter (1:INTEGER) <- [5]
+23:16:01,729 DEBUG SQL:135 - delete from Carro where id=?
+23:16:01,730 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
+23:16:01,740 DEBUG Util:36 - -------- desconectou banco

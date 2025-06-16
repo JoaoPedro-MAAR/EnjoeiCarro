@@ -23,7 +23,7 @@ public class Modelo {
 	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private Fabricante fabricante;
 	
-	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+	@OneToMany(mappedBy="modelo",cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Carro> lista_de_carros = new ArrayList<>();
 	
 	public Modelo() {

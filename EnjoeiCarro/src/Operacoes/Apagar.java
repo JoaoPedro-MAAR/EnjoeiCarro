@@ -1,5 +1,6 @@
 package Operacoes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Classes.Carro;
@@ -26,7 +27,8 @@ public class Apagar {
 			if (carros.isEmpty()) {
 				System.out.println("Nenhum carro do modelo 'Fiesta' encontrado");
 			} else {
-				for (Carro carro : carros) {
+				for (Carro carro : new ArrayList<>(carros)) {
+					System.out.println(carro);
 					modelo.removerCarro(carro);
 					manager.remove(carro);
 				}

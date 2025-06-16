@@ -42,7 +42,6 @@ public class Alterar {
 			System.out.println("Modelo onix depois de deletar um carro:" + onix);
 			
 			
-			System.out.println("alterou joao para joana");
 			manager.getTransaction().commit();
 		} 
 		catch (NonUniqueResultException e) {
