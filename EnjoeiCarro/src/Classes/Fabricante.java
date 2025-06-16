@@ -1,38 +1,34 @@
 package Classes;
+
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Fabricante {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
 	private String nome;
-	private ArrayList<Modelo> modelos;
+	
+	
+	@OneToMany(mappedBy = "fabricante", cascade = {CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true) 
+	private List<Modelo> modelos = new ArrayList<>();
 
+	
+	public Fabricante() {
+	}
 	public Fabricante(String nome) {
-		this.setNome(nome);
-		this.modelos = new ArrayList<Modelo>();
+		this.nome = nome;
 	}
 
-	public void addModelo(Modelo model) {
-		modelos.add(model);
-		model.setFabricante(this);
-	}
-
-	public void rmvModelo(Modelo model) {
-		modelos.remove(model);
-		model.setFabricante(null);
-	}
-
-	public ArrayList<Modelo> getModelos() {
-		return modelos;
-	}
-	
-	public Modelo LocalizarModelo(String nome) {
-		for (Modelo m : modelos){
-			if (m.getNome() == nome)
-				return m;
-			
-		}
-		return null;
-	}
-	
 	public String getNome() {
 		return nome;
 	}
@@ -40,25 +36,36 @@ public class Fabricante {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	@Override
-	public String toString() {
-		String modelNome = "";
-		for (Modelo m : modelos) {
-			if(m == null) {
-				continue;
-			}
-			modelNome = modelNome + m.getNome()+", " ;
-		}
-		
-	    if (modelNome.length() > 0) {
-	    	modelNome = modelNome.substring(0, modelNome.length() - 2);
-	    };
-		
-	
 
-		
-		return "Nome: "+nome+", Modelos: "+modelNome;
+	public int getId () {
+		return id;
 	}
 	
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public void adicionarModelo(Modelo m) {
+		modelos.add(m);
+		m.setFabricante(this);
+	}
+
+	public void removerModelo(Modelo m) {
+		modelos.remove(m);
+		m.setFabricante(null);
+	}
+
+	
+	public String toString() {
+	    return "Fabricante{" + "id=" + id + ", nome='" + nome + '\'' +'}';
+	}
+
+	public List<Modelo> getModelos() {
+		return modelos;
+	}
+
+	
+
 }

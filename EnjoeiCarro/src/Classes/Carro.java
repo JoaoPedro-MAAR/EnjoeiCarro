@@ -1,50 +1,72 @@
 package Classes;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity 
 public class Carro {
-	private String placa;
-	private Modelo modelo;
+	@Id		
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(unique = true, nullable = false)
+	private String placa;	
+	
 	private int ano;
-	private Double valor;
 	private String cor;
-
-
-	public Carro(String placa, int ano, Double valor,String cor, Modelo modelo) {
+	private double valor;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})	
+	private Modelo modelo;
+	
+	
+	public Carro(){
+		
+	}
+	public Carro( String placa, int ano, String cor, double valor) {
 		this.placa = placa;
-		modelo.addCarro(this);
 		this.ano = ano;
-		this.valor = valor;
 		this.cor = cor;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-
-	public int getAno() {
-		return ano;
+	
+	public int getId() {
+		return id;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-	public void setModelo(Modelo model) {
-		modelo = model;
-	}
-
 	public String getPlaca() {
 		return placa;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public String getCor() {
+		return cor;
 	}
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+	public double getValor() {
+		return valor;
+	}
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+	public Modelo getModelo() {
+		return modelo;
+	}
+	public void setModelo(Modelo m) {
+		modelo = m;
+	}
+	
 	@Override
 	public String toString() {
 		return  "Placa: "+placa+", Ano: "+ano+", Valor: "+valor+", Cor: "+cor+", Modelo: "+(modelo!=null? getModelo().getNome():"N/A");   }
+	
 }
-

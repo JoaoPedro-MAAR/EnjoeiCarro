@@ -1,81 +1,91 @@
+
 package Operacoes;
 
-import com.db4o.ObjectContainer;
 
 import Classes.Carro;
 import Classes.Fabricante;
 import Classes.Modelo;
-
+import jakarta.persistence.EntityManager;
 
 public class Cadastrar {
-	private static ObjectContainer manager;
-	
-	public static void main(String[] args) {
-		
-		
+	private EntityManager manager;
+
+	public Cadastrar() {
 		try {
 			manager = Util.conectarBanco();
-		} catch (Exception e) {
-			System.out.println("Erro ao conectar no banco de dados: " + e.getMessage());
-			return;
+			System.out.println("Cadastrando Fabricantes, Modelos e Carros.");
+			
+			
+			
+			
+			manager.getTransaction().begin();
+			Fabricante f1 = new Fabricante("Toyota");
+			Fabricante f2 = new Fabricante("Ford");
+			Fabricante f3 = new Fabricante("Chevrolet");
+			
+			Modelo m1 = new Modelo("Corolla");
+			m1.setFabricante(f1);
+			f1.adicionarModelo(m1);
+			
+			Modelo m2 = new Modelo("Hilux");
+			m2.setFabricante(f1);
+			f1.adicionarModelo(m2);
+			
+			Modelo m3 = new Modelo("Fiesta");
+			m3.setFabricante(f2);
+			f2.adicionarModelo(m3);
+			
+			Modelo m4 = new Modelo("Onix");
+			m4.setFabricante(f3);
+			f3.adicionarModelo(m4);
+			
+			Modelo m5 = new Modelo("Focus");
+			m5.setFabricante(f2);
+			f2.adicionarModelo(m5);
+			
+			Carro c1 = new Carro("AAA1234", 2020, "Preto", 85000.0);
+			c1.setModelo(m1);
+			m1.adicionarCarro(c1);
+			
+			Carro c2 = new Carro("BBB5678", 2021, "Prata", 95000.0);
+			c2.setModelo(m2);
+			m2.adicionarCarro(c2);
+			
+			Carro c3 = new Carro("CCC9012", 2019, "Branco", 78000.0);
+			c3.setModelo(m3);
+			m3.adicionarCarro(c3);
+			
+			Carro c4 = new Carro("DDD3456", 2022, "Azul", 65000.0);
+			c4.setModelo(m4);
+			m4.adicionarCarro(c4);
+			
+			Carro c5 = new Carro("DPP2222", 2022, "Amarelo", 65000.0);
+			c5.setModelo(m5);
+			m5.adicionarCarro(c5);
+			
+			Carro c6 = new Carro("FGH6677", 2015, "Vermelho", 75000.0);
+			c5.setModelo(m4);
+			m4.adicionarCarro(c6);
+			
+			manager.persist(f1);
+			manager.persist(f2);
+			manager.persist(f3);
+			
+			manager.getTransaction().commit();
+			
 		}
-		System.out.println("conectando ao banco");
-		manager = Util.conectarBanco();
-		System.out.println("conectou ao banco");
-		
-		Fabricante f1 = new Fabricante("Toyota");
-
-		Fabricante f2 = new Fabricante("Ford");
-
-		Fabricante f3 = new Fabricante("Chevrolet");
-
-
-		Modelo m1 = new Modelo("Corolla", f1);	
-		Modelo m2 = new Modelo("Hilux", f1);
-		Modelo m3 = new Modelo("Fiesta", f2);
-		Modelo m4 = new Modelo("Focus", f2);
-		Modelo m5 = new Modelo("Onix", f3);
-
-		
-		
-		Carro c1 = new Carro("ABC1234", 2020, 80000.0,"Vermelho", m1);
-		Carro c2 = new Carro("DEF5678", 2019, 75000.0,"Azul", m1);
-
-		Carro c3 = new Carro("GHI9012", 2021, 120000.0,"Branco",m2);
-
-		Carro c4 = new Carro("JKL3456", 2018, 65000.0,"Cinza", m3);
-
-		Carro c5 = new Carro("MNO7890", 2020, 70000.0,"Preto", m3);
-
-		Carro c6 = new Carro("PQR1234", 2022, 90000.0,"Roxo", m4);
-		Carro c7 = new Carro("STU5678", 2023, 95000.0,"Rosa", m4);
-		Carro c8 = new Carro("VWX9012", 2021, 60000.0,"Amarelo",m5);
-		Carro c9 = new Carro("YZA3456", 2020, 58000.0,"Marrom", m5);
-		Carro c10 = new Carro("BCD7890", 2019, 55000.0,"Azul",m5);
-		manager.store(c1);
-
-		manager.store(c2);
-
-		manager.store(c3);
-
-		manager.store(c4);
-
-		manager.store(c5);
-
-		manager.store(c6);
-
-		manager.store(c7);
-
-		manager.store(c8);
-
-		manager.store(c9);
-
-		manager.store(c10);
-		manager.commit();
-		
-		Util.desconectar();
-		System.out.println("cadastrou os fabricantes, modelos e carros");
-		
-
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+			
+		Util.fecharBanco();
+		System.out.println("fim do programa");
 	}
+
+
+	// =================================================
+	public static void main(String[] args) {
+		new Cadastrar();
+	}
+
 }

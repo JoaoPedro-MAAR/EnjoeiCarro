@@ -2,39 +2,48 @@ package Operacoes;
 
 import java.util.List;
 
-import com.db4o.ObjectContainer;
-import com.db4o.query.Query;
-
 import Classes.Carro;
 import Classes.Fabricante;
 import Classes.Modelo;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 public class Listar {
-	private static ObjectContainer manager;
+	private EntityManager manager;
+	
+	public Listar() {
+		manager = Util.conectarBanco();
+		
+		try {
+			System.out.println("\nListagem de fabricantes");
+			TypedQuery<Fabricante> query1 = manager.createQuery("select f from Fabricante f", Fabricante.class);
+			List<Fabricante> resultados1 = query1.getResultList();
+			for (Fabricante f : resultados1)
+				System.out.println(f);
+
+
+			System.out.println("\nListagem de modelos");
+			TypedQuery<Modelo> query2 = manager.createQuery("select m from Modelo m", Modelo.class);
+			List<Modelo> resultados2 = query2.getResultList();
+			for (Modelo m : resultados2)
+				System.out.println(m);
+
+
+			System.out.println("\nListagem de carros");
+			TypedQuery<Carro> query3 = manager.createQuery("select c from Carro c", Carro.class); 
+			List<Carro> resultados3 = query3.getResultList();
+			for (Carro c : resultados3)
+				System.out.println(c);
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		Util.fecharBanco();
+		System.out.println("fim do programa");
+	}
 	
 	public static void main(String[] args) {
-		manager = Util.conectarBanco();
-
-		System.out.println("Fabricantes:\n");
-		Query q1 = manager.query();
-		q1.constrain(Fabricante.class);
-		List<Fabricante> resultados = q1.execute();
-		for(Fabricante f : resultados)
-		System.out.println(f);
-
-		System.out.println("\nModelo:\n");
-		Query q2 = manager.query();
-		q2.constrain(Modelo.class);
-		List<Modelo> resultadosMo = q2.execute();
-		for(Modelo m : resultadosMo)
-		System.out.println(m);
-
-		System.out.println("\nCarros:\n");
-		Query q3 = manager.query();
-		q3.constrain(Carro.class);
-		List<Carro> resultadosCA = q3.execute();
-		for(Carro c : resultadosCA)
-		System.out.println(c);
-		Util.desconectar();
+		new Listar();
 	}
+
 }

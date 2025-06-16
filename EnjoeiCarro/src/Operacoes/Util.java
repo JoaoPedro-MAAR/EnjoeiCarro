@@ -1,42 +1,41 @@
+/**********************************
+ * IFPB - SI
+ * POB - Persistencia de Objetos
+ * Prof. Fausto Ayres
+ **********************************/
+
 package Operacoes;
-
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.db4o.config.EmbeddedConfiguration;
-
-import Classes.Carro;
-import Classes.Fabricante;
-import Classes.Modelo;
-
-
+import org.apache.log4j.Logger;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class Util {
-	private static ObjectContainer manager;
-	public static ObjectContainer conectarBanco(){
-		if (manager != null)
-			return manager;		
+	private static EntityManager manager;
+	private static EntityManagerFactory factory;
 
-		EmbeddedConfiguration config =  Db4oEmbedded.newConfiguration(); 
-		config.common().messageLevel(0); 
-		
-		config.common().objectClass(Fabricante.class).cascadeOnDelete(false);;
-		config.common().objectClass(Fabricante.class).cascadeOnUpdate(true);;
-		config.common().objectClass(Fabricante.class).cascadeOnActivate(true);
-		config.common().objectClass(Modelo.class).cascadeOnDelete(false);;
-		config.common().objectClass(Modelo.class).cascadeOnUpdate(true);;
-		config.common().objectClass(Modelo.class).cascadeOnActivate(true);
-		config.common().objectClass(Carro.class).cascadeOnDelete(false);;
-		config.common().objectClass(Carro.class).cascadeOnUpdate(true);;
-		config.common().objectClass(Carro.class).cascadeOnActivate(true);
-		
-		manager = Db4oEmbedded.openFile(config, "banco.db4o");
+	private static final Logger logger = Logger.getLogger(Util.class);
+
+	
+	public static EntityManager conectarBanco(){
+		if(manager == null) {
+			factory = Persistence.createEntityManagerFactory("hibernate-postgresql");
+			//factory = Persistence.createEntityManagerFactory("hibernate-mysql");
+			
+			manager = factory.createEntityManager();
+			logger.debug("-------- conectou banco agenda");
+		}
 		return manager;
 	}
-	
-	public static void desconectar() {
-		if(manager!=null) {
+
+	public static void fecharBanco(){
+		if(manager != null && manager.isOpen()) {
 			manager.close();
+			factory.close();
 			manager=null;
+			logger.debug("-------- desconectou banco");
 		}
+	
+
 	}
 }
