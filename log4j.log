@@ -1,0 +1,125 @@
+15:25:57,825  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:25:57,833  INFO Util:35 - sgbd => postgresql
+15:25:57,833  INFO Util:36 - banco => locadora
+15:25:57,833  INFO Util:37 - ip => localhost
+15:25:57,834  INFO Util:42 - ----configurando postgresql
+15:25:57,878 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+15:25:58,104  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:25:58,193  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
+15:25:58,247 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:25:58,248  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:25:58,672  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:25:59,470  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/locadora]
+	Database driver: org.postgresql.Driver
+	Database version: 13.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:26:01,462  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:26:01,502  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@183fc658] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:26:02,823 DEBUG SQL:135 - select u1_0.nome,u1_0.senha from Usuario u1_0
+15:26:02,957 DEBUG SQL:135 - select u1_0.nome,u1_0.senha from Usuario u1_0 where u1_0.nome=?
+15:26:02,958 TRACE bind:24 - binding parameter (1:VARCHAR) <- [fausto]
+15:26:03,030 DEBUG SQL:135 - insert into Usuario (senha,nome) values (?,?)
+15:26:03,034 TRACE bind:24 - binding parameter (1:VARCHAR) <- [1234]
+15:26:03,035 TRACE bind:24 - binding parameter (2:VARCHAR) <- [fausto]
+15:26:06,461 DEBUG SQL:135 - select u1_0.nome,u1_0.senha from Usuario u1_0 where u1_0.nome=?
+15:26:06,461 TRACE bind:24 - binding parameter (1:VARCHAR) <- [fausto]
+15:26:06,799  INFO Util:71 - ----desconectar banco
+15:26:14,940  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:26:14,940  INFO Util:35 - sgbd => postgresql
+15:26:14,941  INFO Util:36 - banco => locadora
+15:26:14,941  INFO Util:37 - ip => localhost
+15:26:14,941  INFO Util:42 - ----configurando postgresql
+15:26:14,947  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:26:14,951 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:26:14,951  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:26:15,026  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:26:15,281  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/locadora]
+	Database driver: org.postgresql.Driver
+	Database version: 13.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:26:15,470  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:26:15,472  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4d6a7f36] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:26:15,834 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0
+15:26:17,300 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0
+15:26:20,580  INFO Util:71 - ----desconectar banco
+15:26:22,113  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:26:22,114  INFO Util:35 - sgbd => postgresql
+15:26:22,114  INFO Util:36 - banco => locadora
+15:26:22,114  INFO Util:37 - ip => localhost
+15:26:22,116  INFO Util:42 - ----configurando postgresql
+15:26:22,121  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:26:22,123 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:26:22,123  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:26:22,165  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:26:22,409  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/locadora]
+	Database driver: org.postgresql.Driver
+	Database version: 13.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:26:22,640  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:26:22,641  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7388bfa8] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:26:23,105 DEBUG SQL:135 - select c1_0.cpf,c1_0.nome from Cliente c1_0
+15:26:38,349  INFO Util:71 - ----desconectar banco
+15:26:39,974  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:26:39,975  INFO Util:35 - sgbd => postgresql
+15:26:39,975  INFO Util:36 - banco => locadora
+15:26:39,975  INFO Util:37 - ip => localhost
+15:26:39,975  INFO Util:42 - ----configurando postgresql
+15:26:39,980  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:26:39,982 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:26:39,983  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:26:40,035  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:26:40,235  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/locadora]
+	Database driver: org.postgresql.Driver
+	Database version: 13.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:26:40,345  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:26:40,346  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@f0f7dc4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:26:40,624 DEBUG SQL:135 - select a1_0.id,a1_0.carro_placa,a1_0.cliente_cpf,a1_0.datafim,a1_0.datainicio,a1_0.diaria,a1_0.finalizado from Aluguel a1_0
+15:26:40,643 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0 where c1_0.placa=?
+15:26:40,643 TRACE bind:24 - binding parameter (1:VARCHAR) <- [AAA1000]
+15:26:40,644 DEBUG SQL:135 - select c1_0.cpf,c1_0.nome from Cliente c1_0 where c1_0.cpf=?
+15:26:40,645 TRACE bind:24 - binding parameter (1:VARCHAR) <- [1111]
+15:26:40,649 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0 where c1_0.placa=?
+15:26:40,649 TRACE bind:24 - binding parameter (1:VARCHAR) <- [BBB2000]
+15:26:40,650 DEBUG SQL:135 - select c1_0.cpf,c1_0.nome from Cliente c1_0 where c1_0.cpf=?
+15:26:40,651 TRACE bind:24 - binding parameter (1:VARCHAR) <- [2222]
+15:26:40,652 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0 where c1_0.placa=?
+15:26:40,653 TRACE bind:24 - binding parameter (1:VARCHAR) <- [CCC3000]
+15:26:48,556  INFO Util:71 - ----desconectar banco
+15:26:50,064  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:26:50,066  INFO Util:35 - sgbd => postgresql
+15:26:50,066  INFO Util:36 - banco => locadora
+15:26:50,066  INFO Util:37 - ip => localhost
+15:26:50,066  INFO Util:42 - ----configurando postgresql
+15:26:50,070  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:26:50,072 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:26:50,073  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:26:50,113  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:26:50,310  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/locadora]
+	Database driver: org.postgresql.Driver
+	Database version: 13.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:26:50,385  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:26:50,386  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@76acf601] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:26:50,661 DEBUG SQL:135 - select c1_0.placa,c1_0.alugado,c1_0.modelo from Carro c1_0
+15:26:52,773  INFO Util:71 - ----desconectar banco
