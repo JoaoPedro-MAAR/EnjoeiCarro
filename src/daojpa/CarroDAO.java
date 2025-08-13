@@ -20,10 +20,16 @@ public class CarroDAO extends DAO<Carro>{
 		}
 	}
 
-	public List<Carro> carrosNAlugueis(int n) {
-		// carros com 3 alugueis
-		TypedQuery<Carro> q = manager.createQuery("select c from Carro c where size(c.alugueis) = :x", Carro.class);
-		q.setParameter("x", n);
-		return q.getResultList();
+	public List<Carro> findCarByYear(int year){
+		try {
+			TypedQuery<Carro> q = manager.createQuery("select c from Carro c where c.ano=:year",Carro.class);
+			q.setParameter("year", year);
+			List<Carro> lista = q.getResultList();
+			return lista;
+		}
+		catch(NoResultException e){
+			return null;
+		}
+
 	}
 }

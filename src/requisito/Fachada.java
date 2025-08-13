@@ -12,19 +12,14 @@ import daojpa.CarroDAO;
 import daojpa.DAO;
 import daojpa.FabricanteDAO;
 import daojpa.ModeloDAO;
-//import daodb4o.DAO;
-//import daodb4o.DAOAluguel;
-//import daodb4o.DAOCarro;
-//import daodb4o.DAOCliente;
-//import daodb4o.DAOUsuario;
 import modelo.Carro;
+import modelo.Fabricante;
 import modelo.Modelo;
 
 public class Fachada {
 	private Fachada() {}
 
 	private static CarroDAO carroDAO = new CarroDAO();  
-//contem o usuario que logou na TelaLogin.java
 	private static FabricanteDAO fabricanteDAO = new FabricanteDAO() ;
 	private static ModeloDAO modeloDAO = new ModeloDAO();
 	
@@ -79,82 +74,67 @@ public class Fachada {
 	}
 	public static void excluirModelo(String nome) throws Exception{
 		DAO.begin();
-		Modelo modelo =  MododeloDAO.read(nome);
+		Modelo modelo =  modeloDAO.read(nome);
 		if(modelo==null)  {
 			DAO.rollback();
 			throw new Exception ("Modelo incorreto para exclusao " + nome);
 		}
 
-		ModeloDAO.delete(modelo);
+		modeloDAO.delete(modelo);
 		DAO.commit();
 	}
 
 	
 	public static void cadastrarFabricante(String nome) throws Exception{
 		DAO.begin();
-		Fabricante fabricante = FabricanteDAO.read(nome);
-		if (carro!=null) {
+		Fabricante fabricante = fabricanteDAO.read(nome);
+		if (fabricante!=null) {
 			DAO.rollback();
 			throw new Exception("Fabricante ja cadastrado:" + nome);
 		}
-		Fabricante fabricante = new Fabricante(nome);
+		fabricante = new Fabricante(nome);
 
-		FabricanteDAO.create(fabricante);
+		fabricanteDAO.create(fabricante);
 		DAO.commit();
 	}
 	
 	public static void excluirFabricante(String nome) throws Exception{
-		DAO.begin()
-		Fabricante fabricante = FabricanteDAO.read(nome);
-		if (carro==null) {
-			DAO.rollback()
+		DAO.begin();
+		Fabricante fabricante = fabricanteDAO.read(nome);
+		if (fabricante==null) {
+			DAO.rollback();
 			throw new Exception ("Fabricante incorreto para exclusão: "+nome);
 		}
-		FabricanteDAO.delete(fabricante)
-		DAO.commit()
-		
-	}		
-		}
-	}
-	
-	
-	
-	public static void excluirAluguel(int id) throws Exception{
-		DAO.begin();
-		Aluguel aluguel =  aluguelDAO.read(id);
-		if(aluguel==null)  {
-			DAO.rollback();
-			throw new Exception ("aluguel incorreto para exclusao " + id);
-		}
-		if(! aluguel.isFinalizado())  {
-			DAO.rollback();
-			throw new Exception ("aluguel nao finalizado nao pode ser excluido " + id);
-		}
-		
-		//remover o cliente e carro do aluguel
-		Cliente cli = aluguel.getCliente();
-		Carro carro = aluguel.getCarro();
-		cli.remover(aluguel);
-		carro.remover(aluguel);
-		
-		aluguelDAO.delete(aluguel);
+		fabricanteDAO.delete(fabricante);
 		DAO.commit();
+		
 	}
-
-	public static List<Cliente>  listarClientes(){
-		List<Cliente> resultados =  clienteDAO.readAll();
-		return resultados;
-	} 
-
 	public static List<Carro>  listarCarros(){
 		List<Carro> resultados =  carroDAO.readAll();
 		return resultados;
-	}
+	} 
 
-	public static List<Aluguel> listarAlugueis(){
-		List<Aluguel> resultados =  aluguelDAO.readAll();
+	public static List<Modelo>  listarModelos(){
+		List<Modelo> resultados =  modeloDAO.readAll();
 		return resultados;
 	}
+
+	public static List<Fabricante> listarFabricantes(){
+		List<Fabricante> resultados =  fabricanteDAO.readAll();
+		return resultados;
+	}
+
+	public static Carro localizarCarro(String placa){
+		return carroDAO.read(placa);
+	}
+	public static Modelo localizarModelo(String nome){return modeloDAO.read(nome);}
+	public static Fabricante localizarFabricante(String nome){return fabricanteDAO.read(nome);}
+
+	public static List<Carro> procurarCarroporAno(int ano){
+		return carroDAO.findCarByYear(ano);
+	}
+
+
 
 	public static List<Usuario>  listarUsuarios(){
 		List<Usuario> resultados =  usuarioDAO.readAll();
@@ -176,9 +156,6 @@ public class Fachada {
 		return resultados;
 	}
 
-	public static Carro localizarCarro(String placa){
-		return carroDAO.read(placa);
-	} 
 	public static Cliente localizarCliente(String cpf){
 		return clienteDAO.read(cpf);
 	}
@@ -208,4 +185,49 @@ public class Fachada {
 		}
 		return usu;
 	}
+
+	public static void removerCarroDeModelo(String placa,String nomeModelo){
+		DAO.begin();
+		Modelo modelo = modeloDAO.read(nomeModelo);
+		List<Carro> carros = modelo.getLista_de_carros();
+		Carro c ;
+		for (Carro carro : carros) {
+			if (carro.getPlaca().equals(placa)) {
+				c = carro;
+			}
+		}
+		if(c==null){
+			DAO.rollback();
+
+		}
+		else {
+			modelo.getLista_de_carros().remove(c);
+			DAO.commit();
+		}
+
+
+	}
+
+	public static void adicionarCarroDeModelo(String placa,String nomeModelo)throws Exception{
+		DAO.begin();
+		Modelo modelo = modeloDAO.read(nomeModelo);
+		if(modelo==null){
+			DAO.rollback();
+			throw new Exception("Modelo não pode ser encontrado");
+		}
+		Carro carro = carroDAO.read(placa);
+		if (carro==null) {
+			DAO.rollback();
+			throw new Exception("Carro não pode ser encontrado");
+		}
+		modelo.getLista_de_carros().add(carro);
+		DAO.commit();
+	}
+
+
+
+
+
+
+
 }
