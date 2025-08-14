@@ -130,61 +130,22 @@ public class Fachada {
 	public static Modelo localizarModelo(String nome){return modeloDAO.read(nome);}
 	public static Fabricante localizarFabricante(String nome){return fabricanteDAO.read(nome);}
 
+	public static List<Carro> listarTodosOsCarrosDeUmFabricante(String nome){
+		return fabricanteDAO.getCarrosbyFabricante(nome);
+	}
+
 	public static List<Carro> procurarCarroporAno(int ano){
 		return carroDAO.findCarByYear(ano);
 	}
 
 
 
-	public static List<Usuario>  listarUsuarios(){
-		List<Usuario> resultados =  usuarioDAO.readAll();
-		return resultados;
-	} 
-
-	public static List<Aluguel> alugueisModelo(String modelo){	
-		List<Aluguel> resultados =  aluguelDAO.alugueisModelo(modelo);
-		return resultados;
+	public static List<Modelo> procurarModeloPorqntdDeCarro(int qntd){
+		if (qntd>0)
+			return modeloDAO.getModeloWithGTThan(qntd);
+		return null;
 	}
 
-	public static List<Aluguel> alugueisFinalizados(){	
-		List<Aluguel> resultados =  aluguelDAO.alugueisFinalizados();
-		return resultados;
-	}
-
-	public static List<Carro>  carrosNAlugueis(int n){	
-		List<Carro> resultados =  carroDAO.carrosNAlugueis(n);
-		return resultados;
-	}
-
-	public static Cliente localizarCliente(String cpf){
-		return clienteDAO.read(cpf);
-	}
-
-
-	//------------------Usuario------------------------------------
-	public static Usuario cadastrarUsuario(String nome, String senha) throws Exception{
-		DAO.begin();
-		Usuario usu = usuarioDAO.read(nome);
-		 if (usu!=null) {
-			DAO.rollback();
-			throw new Exception("Usuario ja cadastrado:" + nome);
-		}
-		usu = new Usuario(nome, senha);
-
-		usuarioDAO.create(usu);
-		DAO.commit();
-		return usu;
-	}
-	public static Usuario localizarUsuario(String nome, String senha) {
-		Usuario usu = usuarioDAO.read(nome);
-		if (usu==null) {
-			return null;
-		}
-		if (! usu.getSenha().equals(senha)) {
-			return null;
-		}
-		return usu;
-	}
 
 	public static void removerCarroDeModelo(String placa,String nomeModelo){
 		DAO.begin();

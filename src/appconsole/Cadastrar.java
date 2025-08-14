@@ -7,23 +7,24 @@ import jakarta.persistence.EntityManager;
 import modelo.Carro;
 import modelo.Fabricante;
 import modelo.Modelo;
+import requisito.Fachada;
+import requisito.Fachada
 
 public class Cadastrar {
-	private EntityManager manager;
 
 	public Cadastrar() {
 		try {
-			manager = Util.conectarBanco();
-			System.out.println("Cadastrando Fabricantes, Modelos e Carros.");
-			
-			
-			
-			
-			manager.getTransaction().begin();
-			Fabricante f1 = new Fabricante("Toyota");
-			Fabricante f2 = new Fabricante("Ford");
-			Fabricante f3 = new Fabricante("Chevrolet");
-			
+			Fachada.inicializar();
+			try {
+				System.out.println("Cadastrando Fabricantes, Modelos e Carros.");
+
+				Fachada.cadastrarFabricante("Toyota");
+				Fachada.cadastrarFabricante("Ford");
+				Fachada.cadastrarFabricante("Chevrolet");
+			}
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 			Modelo m1 = new Modelo("Corolla");
 			m1.setFabricante(f1);
 			f1.adicionarModelo(m1);
@@ -71,29 +72,7 @@ public class Cadastrar {
 			Carro c7 = new Carro("PJK5566", 2016, "Azul", 65000.0);
 			c7.setModelo(m4);
 			m4.adicionarCarro(c7);
-			
-			
-			
-			
-			manager.persist(f1);
-			manager.persist(f2);
-			manager.persist(f3);
-			
-			manager.persist(m1);
-			manager.persist(m2);
-			manager.persist(m3);
-			manager.persist(m4);
-			manager.persist(m5);
-			
-			manager.persist(c1);
-			manager.persist(c2);
-			manager.persist(c3);
-			manager.persist(c4);
-			manager.persist(c5);
-			manager.persist(c6);
-			manager.persist(c7);
-			
-			manager.getTransaction().commit();
+
 			
 		}
 		catch (Exception e) {
