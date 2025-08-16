@@ -1,15 +1,15 @@
-21:55:05,907  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
-21:55:05,913  INFO Util:35 - sgbd => postgresql
-21:55:05,913  INFO Util:36 - banco => EnjoeiDAO
-21:55:05,913  INFO Util:37 - ip => localhost
-21:55:05,913  INFO Util:42 - ----configurando postgresql
-21:55:05,939 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
-21:55:06,112  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
-21:55:06,190  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
-21:55:06,232 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
-21:55:06,233  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
-21:55:06,424  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
-21:55:06,699  INFO pooling:157 - HHH10001005: Database info:
+09:11:04,933  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+09:11:04,939  INFO Util:35 - sgbd => postgresql
+09:11:04,939  INFO Util:36 - banco => EnjoeiDAO
+09:11:04,939  INFO Util:37 - ip => localhost
+09:11:04,940  INFO Util:42 - ----configurando postgresql
+09:11:04,961 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+09:11:05,189  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+09:11:05,311  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
+09:11:05,365 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+09:11:05,367  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+09:11:05,645  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+09:11:05,979  INFO pooling:157 - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
 	Database driver: org.postgresql.Driver
 	Database version: 17.2
@@ -17,9 +17,18 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: 1
 	Maximum pool size: 20
-21:55:07,806  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-21:55:07,826  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@787e4357] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-21:55:08,307 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
-21:55:08,334 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
-21:55:08,339 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0
-21:55:08,342  INFO Util:71 - ----desconectar banco
+09:11:07,123  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+09:11:07,141  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@ea7a4c3] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+09:11:07,655 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.ano=?
+09:11:07,656 TRACE bind:24 - binding parameter (1:INTEGER) <- [2022]
+09:11:07,678 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+09:11:07,679 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
+09:11:07,693 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+09:11:07,693 TRACE bind:24 - binding parameter (1:INTEGER) <- [5]
+09:11:07,715 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
+09:11:07,716 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Ford]
+09:11:07,789 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where (select count(*) from Carro l1_0 where m1_0.id=l1_0.modelo_id)>?
+09:11:07,790 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+09:11:07,793 DEBUG SQL:135 - select l1_0.modelo_id,l1_0.placa,l1_0.ano,l1_0.cor,l1_0.valor from Carro l1_0 where l1_0.modelo_id=?
+09:11:07,794 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
+09:11:07,797  INFO Util:71 - ----desconectar banco

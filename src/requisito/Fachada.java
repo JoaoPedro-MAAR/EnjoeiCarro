@@ -151,7 +151,7 @@ public class Fachada {
 	public static Fabricante localizarFabricante(String nome){return fabricanteDAO.read(nome);}
 
 	public static List<Carro> listarTodosOsCarrosDeUmFabricante(String nome){
-		return fabricanteDAO.getCarrosbyFabricante(nome);
+		return carroDAO.getCarrosbyFabricante(nome);
 	}
 
 	public static List<Carro> procurarCarroporAno(int ano){
@@ -210,9 +210,11 @@ public class Fachada {
 				DAO.rollback();
 				throw new Exception("Carro não pode ser encontrado");
 			}
-			modelo.getLista_de_carros().add(carro);
+			modelo.adicionarCarro(carro);
 			modeloDAO.update(modelo);
+			System.out.println("Modelo adicionado com sucesso");
 			carroDAO.update(carro);
+			System.out.println("Carro update com sucesso");
 			DAO.commit();
 		}catch(Exception ex){
 			DAO.rollback();

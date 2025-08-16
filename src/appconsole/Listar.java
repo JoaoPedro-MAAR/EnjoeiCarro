@@ -1,13 +1,7 @@
 package appconsole;
 
 
-import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import modelo.Carro;
-import modelo.Fabricante;
-import modelo.Modelo;
 import requisito.Fachada;
 
 public class Listar {
