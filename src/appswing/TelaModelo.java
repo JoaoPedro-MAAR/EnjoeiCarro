@@ -24,44 +24,38 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import modelo.Carro;
 import modelo.Fabricante;
 import modelo.Modelo;
 import requisito.Fachada;
 import javax.swing.JComboBox;
 
-public class TelaCarro {
+public class TelaModelo {
 	private JDialog frame;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private JTextField fieldPlaca;
 	private JButton button;
 	private JButton button_1;
 	private JButton button_2;
 	private JLabel label;
-	private JLabel label_2;
-	private JLabel label_3;
 	private JLabel label_4;
 	private JLabel label_1;
-	private JTextField fieldAno;
-	private JLabel label_5;
-	private JTextField fieldCor;
-	private JLabel label_6;
-	private JTextField fieldValor;
-	private JComboBox modeloComboBox;
+	private JTextField fieldnomeModelo;
+	private JLabel label_2;
+	private JComboBox fabricantecomboBox;
 
 	/**
 	 * Launch the application.
+	 * @wbp.parser.entryPoint
 	 */
 	public static void main(String[] args) {
+		Fachada.inicializar();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCarro tela = new TelaCarro();
+					new TelaModelo();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,8 +65,10 @@ public class TelaCarro {
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.entryPoint
 	 */
-	public TelaCarro() {
+	public TelaModelo() {
+		Fachada.inicializar();
 		initialize();
 		carregarCombobox();
 		frame.setVisible(true);
@@ -146,57 +142,35 @@ public class TelaCarro {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		label_2 = new JLabel("placa:");
-		label_2.setHorizontalAlignment(SwingConstants.LEFT);
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(10, 267, 71, 14);
-		frame.getContentPane().add(label_2);
-
-		fieldPlaca = new JTextField();
-		fieldPlaca.setFont(new Font("Dialog", Font.PLAIN, 12));
-		fieldPlaca.setColumns(10);
-		fieldPlaca.setBounds(45, 264, 105, 20);
-		frame.getContentPane().add(fieldPlaca);
-
-		button_1 = new JButton("Criar novo carro");
+		button_1 = new JButton("Criar novo modelo");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-				    String placa = fieldPlaca.getText();
-				    
-				    Modelo modeloObj = Fachada.localizarModelo(modeloComboBox.getSelectedItem().toString());
-				    String nomeModelo = modeloObj.getNome();  
-				    
-				    String anoString = fieldAno.getText();
-				    int ano = Integer.parseInt(anoString);
-				    
-				    String cor = fieldCor.getText();
-				    
-				    String valorString = fieldValor.getText();
-
-				    Double valor = Double.parseDouble(valorString.replace(",", "."));
-				    
-				    Fachada.cadastrarCarro(placa, ano, cor, valor);
-				    Fachada.adicionarCarroDeModelo(placa, nomeModelo);
+					fabricantecomboBox.getSelectedItem().toString();
+					String nomeModelo = fieldnomeModelo.getText();
+					Fabricante fabricante = Fachada.localizarFabricante(fabricantecomboBox.getSelectedItem().toString());
+					if (fabricante == null) {
+					    System.out.println("Erro: Fabricante não localizado.");
+					    JOptionPane.showMessageDialog(null, "Fabricante não localizado!");
+					}
+					String fabricanteNome = fabricante.getNome();
+				    Fachada.cadastrarModelo(nomeModelo);
+				    Fachada.TrocarModeloAoFabricante(nomeModelo, fabricanteNome);
 				    listagem();
-				    label.setText("Carro cadastrado");
+				    label.setText("Modelo cadastrado");
+
 				    
 
 	
 
-				} catch (NumberFormatException ex) {
-				    System.out.println("Erro de conversão: O ano e o valor devem ser números válidos.");
-				    JOptionPane.showMessageDialog(null, "O ano e o valor devem ser números válidos!");
-				} catch (NullPointerException ex) {
-				    System.out.println("Erro: Modelo não localizado.");
-				    JOptionPane.showMessageDialog(null, "Modelo não localizado!");
-				} catch (Exception e1) {
+				}catch (Exception e1) {
 					e1.printStackTrace();
+					label.setText(e1.getMessage());
 				}
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_1.setBounds(525, 265, 153, 23);
+		button_1.setBounds(524, 236, 171, 23);
 		frame.getContentPane().add(button_1);
 
 		button = new JButton("Listar");
@@ -209,21 +183,15 @@ public class TelaCarro {
 		button.setBounds(308, 11, 89, 23);
 		frame.getContentPane().add(button);
 
-		label_3 = new JLabel("Modelo:");
-		label_3.setHorizontalAlignment(SwingConstants.LEFT);
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(281, 269, 63, 14);
-		frame.getContentPane().add(label_3);
-
 		button_2 = new JButton("Deletar selecionado");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					if (table.getSelectedRow() >= 0){
 						label.setText("nao implementado " );
-						String placa = (String) table.getValueAt( table.getSelectedRow(), 0);
+						String placa = (String) table.getValueAt( table.getSelectedRow(), 1);
 
-						Fachada.excluirCarro(placa);
+						Fachada.excluirModelo(placa);
 						label.setText("carro apagado" );
 						listagem();
 					}
@@ -236,85 +204,67 @@ public class TelaCarro {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_2.setBounds(281, 213, 171, 23);
+		button_2.setBounds(524, 202, 171, 23);
 		frame.getContentPane().add(button_2);
 		
-		label_1 = new JLabel("Ano");
-		label_1.setHorizontalAlignment(SwingConstants.LEFT);
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_1.setBounds(160, 268, 71, 14);
+		label_1 = new JLabel("Nome:  ");
+		label_1.setBounds(34, 241, 43, 14);
 		frame.getContentPane().add(label_1);
 		
-		fieldAno = new JTextField();
-		fieldAno.setBounds(188, 265, 86, 20);
-		frame.getContentPane().add(fieldAno);
-		fieldAno.setColumns(10);
+		fieldnomeModelo = new JTextField();
+		fieldnomeModelo.setBounds(71, 238, 86, 20);
+		frame.getContentPane().add(fieldnomeModelo);
+		fieldnomeModelo.setColumns(10);
 		
-		label_5 = new JLabel("Cor: ");
-		label_5.setHorizontalAlignment(SwingConstants.LEFT);
-		label_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_5.setBounds(10, 309, 71, 14);
-		frame.getContentPane().add(label_5);
+		label_2 = new JLabel("Nome Fabricante");
+		label_2.setBounds(168, 241, 81, 14);
+		frame.getContentPane().add(label_2);
 		
-		fieldCor = new JTextField();
-		fieldCor.setFont(new Font("Dialog", Font.PLAIN, 12));
-		fieldCor.setColumns(10);
-		fieldCor.setBounds(37, 305, 105, 20);
-		frame.getContentPane().add(fieldCor);
-		
-		label_6 = new JLabel("Valor");
-		label_6.setHorizontalAlignment(SwingConstants.LEFT);
-		label_6.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_6.setBounds(149, 310, 71, 14);
-		frame.getContentPane().add(label_6);
-		
-		fieldValor = new JTextField();
-		fieldValor.setColumns(10);
-		fieldValor.setBounds(188, 307, 86, 20);
-		frame.getContentPane().add(fieldValor);
-		
-		modeloComboBox = new JComboBox();
-		modeloComboBox.setBounds(326, 266, 140, 22);
-		frame.getContentPane().add(modeloComboBox);
-	}
-
-	public void listagem() {
-		try{
-			List<Carro> lista = Fachada.listarCarros();
-			// model armazena todas as linhas e colunas do table
-			DefaultTableModel model = new DefaultTableModel();
-			table.setModel(model);
-
-			//adicionar colunas no model
-			model.addColumn("Placa");
-			model.addColumn("Modelo");
-			model.addColumn("Cor");
-			model.addColumn("Ano");
-			model.addColumn("Valor");;
-
-			//adicionar linhas no model
-			for(Carro car : lista)
-				model.addRow(new Object[]{car.getPlaca(), car.getModelo().getNome(), car.getCor(), car.getAno(), car.getValor()} );
-
-			label_4.setText("resultados: "+lista.size()+ " objetos");
-		}
-		catch(Exception erro){
-			label.setText(erro.getMessage());
-		}
+		fabricantecomboBox = new JComboBox();
+		fabricantecomboBox.setBounds(259, 237, 115, 22);
+		frame.getContentPane().add(fabricantecomboBox);
 	}
 	
 	public void carregarCombobox() {
 	    try {
 	    	Fachada.inicializar();
-	        modeloComboBox.removeAllItems();
-	        List<Modelo> fabricantes = Fachada.listarModelos();
-	        for(Modelo fabricante : fabricantes ) {
-	            modeloComboBox.addItem(fabricante.getNome());
+	        fabricantecomboBox.removeAllItems();
+	        List<Fabricante> fabricantes = Fachada.listarFabricantes();
+	        for(Fabricante fabricante : fabricantes ) {
+	            fabricantecomboBox.addItem(fabricante.getNome());
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        
 	        JOptionPane.showMessageDialog(frame, "Erro ao carregar fabricantes: " + e.getMessage());
 	    }
+	}
+
+	public void listagem() {
+		try{
+			List<Modelo> lista = Fachada.listarModelos();
+			// model armazena todas as linhas e colunas do table
+			DefaultTableModel model = new DefaultTableModel();
+			table.setModel(model);
+
+			//adicionar colunas no model
+			model.addColumn("id");
+			model.addColumn("Nome");
+			model.addColumn("Fabricante");
+
+			//adicionar linhas no model
+			for(Modelo car : lista) {
+				if (car.getFabricante() != null)
+				model.addRow(new Object[]{car.getID(), car.getNome(),car.getFabricante().getNome(),} );
+				if (car.getFabricante() == null)
+				model.addRow(new Object[]{car.getID(), car.getNome(),"N/A",} );
+
+			}
+
+			label_4.setText("resultados: "+lista.size()+ " objetos");
+		}
+		catch(Exception erro){
+			label.setText(erro.getMessage());
+		}
 	}
 }

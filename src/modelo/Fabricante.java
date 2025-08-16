@@ -28,6 +28,10 @@ public class Fabricante {
 	public Fabricante(String nome) {
 		this.nome = nome;
 	}
+	
+	public int getID() {
+		return id;
+	}
 
 	public String getNome() {
 		return nome;

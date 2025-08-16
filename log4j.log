@@ -1,15 +1,15 @@
-09:11:04,933  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
-09:11:04,939  INFO Util:35 - sgbd => postgresql
-09:11:04,939  INFO Util:36 - banco => EnjoeiDAO
-09:11:04,939  INFO Util:37 - ip => localhost
-09:11:04,940  INFO Util:42 - ----configurando postgresql
-09:11:04,961 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
-09:11:05,189  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
-09:11:05,311  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
-09:11:05,365 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
-09:11:05,367  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
-09:11:05,645  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
-09:11:05,979  INFO pooling:157 - HHH10001005: Database info:
+15:52:30,270  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:52:30,273  INFO Util:35 - sgbd => postgresql
+15:52:30,274  INFO Util:36 - banco => EnjoeiDAO
+15:52:30,274  INFO Util:37 - ip => localhost
+15:52:30,274  INFO Util:42 - ----configurando postgresql
+15:52:30,301 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+15:52:30,413  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:52:30,468  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
+15:52:30,502 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:52:30,503  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:52:30,735  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:52:31,116  INFO pooling:157 - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
 	Database driver: org.postgresql.Driver
 	Database version: 17.2
@@ -17,18 +17,142 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: 1
 	Maximum pool size: 20
-09:11:07,123  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-09:11:07,141  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@ea7a4c3] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-09:11:07,655 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.ano=?
-09:11:07,656 TRACE bind:24 - binding parameter (1:INTEGER) <- [2022]
-09:11:07,678 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
-09:11:07,679 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
-09:11:07,693 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
-09:11:07,693 TRACE bind:24 - binding parameter (1:INTEGER) <- [5]
-09:11:07,715 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
-09:11:07,716 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Ford]
-09:11:07,789 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where (select count(*) from Carro l1_0 where m1_0.id=l1_0.modelo_id)>?
-09:11:07,790 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
-09:11:07,793 DEBUG SQL:135 - select l1_0.modelo_id,l1_0.placa,l1_0.ano,l1_0.cor,l1_0.valor from Carro l1_0 where l1_0.modelo_id=?
-09:11:07,794 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
-09:11:07,797  INFO Util:71 - ----desconectar banco
+15:52:32,114  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:52:32,135  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@90340ec] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:52:32,646 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
+15:52:38,445  INFO Util:71 - ----desconectar banco
+15:52:39,804  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:52:39,805  INFO Util:35 - sgbd => postgresql
+15:52:39,805  INFO Util:36 - banco => EnjoeiDAO
+15:52:39,805  INFO Util:37 - ip => localhost
+15:52:39,805  INFO Util:42 - ----configurando postgresql
+15:52:39,809  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:52:39,811 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:52:39,812  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:52:39,836  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:52:39,885  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:52:39,943  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:52:39,943  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7ce49bc9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:52:40,116 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
+15:52:40,143 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:52:45,002  INFO Util:71 - ----desconectar banco
+15:52:47,107  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:52:47,108  INFO Util:35 - sgbd => postgresql
+15:52:47,108  INFO Util:36 - banco => EnjoeiDAO
+15:52:47,108  INFO Util:37 - ip => localhost
+15:52:47,108  INFO Util:42 - ----configurando postgresql
+15:52:47,111  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:52:47,113 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:52:47,113  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:52:47,136  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:52:47,186  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:52:47,238  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:52:47,238  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@a833cc7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:52:47,394 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:52:47,398 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:47,399 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:52:47,401 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:47,401 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+15:52:47,402 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:47,402 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+15:52:47,429 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0
+15:52:49,098  INFO Util:71 - ----desconectar banco
+15:52:49,972  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:52:49,973  INFO Util:35 - sgbd => postgresql
+15:52:49,973  INFO Util:36 - banco => EnjoeiDAO
+15:52:49,973  INFO Util:37 - ip => localhost
+15:52:49,973  INFO Util:42 - ----configurando postgresql
+15:52:49,976  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:52:49,979 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:52:49,979  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:52:49,998  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:52:50,045  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:52:50,094  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:52:50,094  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5dfef9ad] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:52:50,252 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
+15:52:50,278 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:52:57,011 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:52:57,012 TRACE bind:24 - binding parameter (1:VARCHAR) <- [EX4]
+15:52:57,016 DEBUG SQL:135 - select l1_0.modelo_id,l1_0.placa,l1_0.ano,l1_0.cor,l1_0.valor from Carro l1_0 where l1_0.modelo_id=?
+15:52:57,016 TRACE bind:24 - binding parameter (1:INTEGER) <- [13]
+15:52:57,031 DEBUG SQL:135 - delete from Modelo where id=?
+15:52:57,032 TRACE bind:24 - binding parameter (1:INTEGER) <- [13]
+15:52:57,041 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:52:57,042 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:57,042 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:52:57,043 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:57,044 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+15:52:57,045 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:52:57,046 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+15:52:58,936 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:53:02,286  INFO Util:71 - ----desconectar banco
+15:53:03,598  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:53:03,598  INFO Util:35 - sgbd => postgresql
+15:53:03,598  INFO Util:36 - banco => EnjoeiDAO
+15:53:03,598  INFO Util:37 - ip => localhost
+15:53:03,598  INFO Util:42 - ----configurando postgresql
+15:53:03,601  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:53:03,603 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:53:03,604  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:53:03,624  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:53:03,783  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:53:03,838  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:53:03,838  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@13efc7fe] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:53:03,995 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
+15:53:04,939  INFO Util:71 - ----desconectar banco
+15:53:05,909  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:53:05,909  INFO Util:35 - sgbd => postgresql
+15:53:05,909  INFO Util:36 - banco => EnjoeiDAO
+15:53:05,909  INFO Util:37 - ip => localhost
+15:53:05,910  INFO Util:42 - ----configurando postgresql
+15:53:05,913  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:53:05,914 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:53:05,914  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:53:05,933  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:53:05,981  INFO pooling:157 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
+	Database driver: org.postgresql.Driver
+	Database version: 17.2
+	Autocommit mode: false
+	Isolation level: undefined/unknown
+	Minimum pool size: 1
+	Maximum pool size: 20
+15:53:06,024  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:53:06,024  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4ee12e5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:53:06,176 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:53:06,177 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:53:06,178 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:53:06,178 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:53:06,178 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+15:53:06,179 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:53:06,179 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+15:53:06,201 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.modelo_id,c1_0.valor from Carro c1_0
+15:53:19,392  INFO Util:71 - ----desconectar banco

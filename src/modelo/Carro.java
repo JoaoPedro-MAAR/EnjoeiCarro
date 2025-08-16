@@ -56,6 +56,14 @@ public class Carro {
 		modelo = m;
 	}
 	
+	public int getAno() {
+		return ano;
+	}
+	
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
 	@Override
 	public String toString() {
 		return  " Placa: "+placa+", Ano: "+ano+", Valor: "+valor+", Cor: "+cor+", Modelo: "+(modelo!=null? getModelo().getNome():"N/A");   }

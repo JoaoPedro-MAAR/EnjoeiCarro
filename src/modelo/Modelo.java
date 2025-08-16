@@ -32,6 +32,10 @@ public class Modelo {
 	public Modelo(String nome) {
 		this.nome = nome;
 	}
+	
+	public int getID() {
+		return id;
+	}
 		
 	public void adicionarCarro(Carro carro){
 		lista_de_carros.add(carro);
@@ -46,6 +50,9 @@ public class Modelo {
 		this.fabricante = fabricante;
 
 	}
+	
+	
+	public Fabricante getFabricante(){ return fabricante; }
 	public String getNome() {
 		return nome;
 	}
@@ -65,6 +72,7 @@ public class Modelo {
 		}
 		return null;
 	}
+	
 
 	public String toString() {
 	    return "Modelo{" +
