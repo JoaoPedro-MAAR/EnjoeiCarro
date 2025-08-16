@@ -158,6 +158,40 @@ public class Fachada {
 		return carroDAO.findCarByYear(ano);
 	}
 
+	public static void atualizarCarro(String placa, String cor, Double valor, int ano)throws Exception{
+		DAO.begin();
+		Carro carro = carroDAO.read(placa);
+		if(carro == null){
+			throw new Exception("carro inexistente para atualizar " + placa);
+
+		}
+		if (cor != null) {
+			carro.setCor(cor);
+
+		}
+		if (valor != null)
+			carro.setValor(valor);
+		if (ano > 0 && ano <= 9999)
+			carro.setAno(ano);
+		carroDAO.update(carro);
+		DAO.commit();
+
+
+	}
+	
+	
+	public static void trocaFotoCarro(byte[] foto, String placa) throws Exception {
+		DAO.begin();
+		Carro carro = carroDAO.read(placa);
+		if(carro == null) {
+			throw new Exception("Carro inexistente para definir a foto: "+ placa);
+		}
+		carro.setFoto(foto);
+		carroDAO.update(carro);
+		DAO.commit();
+		
+	}
+
 
 
 	public static List<Modelo> procurarModeloPorqntdDeCarro(int qntd){

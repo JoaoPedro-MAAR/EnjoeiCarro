@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 public class Carro {
 	@Id			
 	private String placa;	
-	
+	private byte[] foto;
 	private int ano;
 	private String cor;
 	private double valor;
@@ -29,6 +29,14 @@ public class Carro {
 		this.ano = ano;
 		this.cor = cor;
 		this.valor = valor;
+	}
+	
+	public byte[] getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 	
 

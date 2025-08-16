@@ -13,10 +13,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +42,10 @@ import modelo.Fabricante;
 import modelo.Modelo;
 import requisito.Fachada;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.border.EtchedBorder;
 
 public class TelaCarro {
 	private JDialog frame;
@@ -53,6 +66,13 @@ public class TelaCarro {
 	private JLabel label_6;
 	private JTextField fieldValor;
 	private JComboBox modeloComboBox;
+	private JPanel panel;
+	private JLabel label_7;
+	private JButton button_3;
+	private JButton button_4;
+	private JButton button_5;
+	private BufferedImage buffer; // armazena a foto na memória durante a edicao
+
 
 	/**
 	 * Launch the application.
@@ -87,7 +107,7 @@ public class TelaCarro {
 
 		frame.setResizable(false);
 		frame.setTitle("Carro");
-		frame.setBounds(100, 100, 729, 385);
+		frame.setBounds(100, 100, 729, 497);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.addWindowListener(new WindowAdapter() {
@@ -120,8 +140,41 @@ public class TelaCarro {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+			try {
 				if (table.getSelectedRow() >= 0)
 					label_4.setText("selecionado="+ table.getValueAt( table.getSelectedRow(), 0));
+				String placaCarro = (String) table.getValueAt(table.getSelectedRow(), 0);
+				Carro c = Fachada.localizarCarro(placaCarro);
+				fieldPlaca.setText(c.getPlaca());				
+				fieldAno.setText(Integer.toString(c.getAno()));
+				fieldValor.setText(Double.toString(c.getValor()));
+				fieldCor.setText(c.getCor());
+				Modelo modeloDoCarro = c.getModelo();
+				if(modeloDoCarro != null) {
+					String nomeDoModelo = modeloDoCarro.getNome();
+					
+					modeloComboBox.setSelectedItem(nomeDoModelo);
+				}
+				else {
+					modeloComboBox.setSelectedIndex(-1);
+				}
+				
+				if (c.getFoto() != null) {
+					InputStream in = new ByteArrayInputStream(c.getFoto());
+					buffer = ImageIO.read(in);
+					ImageIcon icon = new ImageIcon(
+							buffer.getScaledInstance(buffer.getWidth(), buffer.getHeight(), Image.SCALE_DEFAULT));
+					icon.setImage(icon.getImage().getScaledInstance(label_7.getWidth(), label_7.getHeight(), 1));
+					label_7.setIcon(icon);
+				} else {
+					buffer = null;
+					label_7.setText("sem foto");
+					label_7.setIcon(null);
+				}
+			}catch (Exception ex) {
+				label.setText(ex.getMessage());
+			}
+				
 			}
 		});
 		table.setGridColor(Color.BLACK);
@@ -137,9 +190,9 @@ public class TelaCarro {
 		table.setShowGrid(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		label = new JLabel("");		//label de mensagem
+		label = new JLabel("");
 		label.setForeground(Color.BLUE);
-		label.setBounds(21, 321, 688, 14);
+		label.setBounds(10, 420, 688, 14);
 		frame.getContentPane().add(label);
 
 		label_4 = new JLabel("resultados:");
@@ -149,13 +202,13 @@ public class TelaCarro {
 		label_2 = new JLabel("placa:");
 		label_2.setHorizontalAlignment(SwingConstants.LEFT);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(10, 267, 71, 14);
+		label_2.setBounds(10, 218, 71, 14);
 		frame.getContentPane().add(label_2);
 
 		fieldPlaca = new JTextField();
 		fieldPlaca.setFont(new Font("Dialog", Font.PLAIN, 12));
 		fieldPlaca.setColumns(10);
-		fieldPlaca.setBounds(45, 264, 105, 20);
+		fieldPlaca.setBounds(47, 215, 105, 20);
 		frame.getContentPane().add(fieldPlaca);
 
 		button_1 = new JButton("Criar novo carro");
@@ -178,8 +231,22 @@ public class TelaCarro {
 				    
 				    Fachada.cadastrarCarro(placa, ano, cor, valor);
 				    Fachada.adicionarCarroDeModelo(placa, nomeModelo);
+				    byte[] bytesfoto = null;
+					if (buffer != null)
+						try {
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							ImageIO.write(buffer, "jpg", baos);
+							bytesfoto = baos.toByteArray();
+							baos.close();
+						} catch (IOException ex1) {
+							label.setText("problema na conversão da imagem em bytes");
+						}
+					System.out.println("Carro cadastrado");
+				    Fachada.trocaFotoCarro(bytesfoto, placa);
+				    System.out.println("Foto adicionada");
 				    listagem();
 				    label.setText("Carro cadastrado");
+				   
 				    
 
 	
@@ -191,12 +258,13 @@ public class TelaCarro {
 				    System.out.println("Erro: Modelo não localizado.");
 				    JOptionPane.showMessageDialog(null, "Modelo não localizado!");
 				} catch (Exception e1) {
+					System.out.println("Cai nessa exceção");
 					e1.printStackTrace();
 				}
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_1.setBounds(525, 265, 153, 23);
+		button_1.setBounds(23, 336, 153, 23);
 		frame.getContentPane().add(button_1);
 
 		button = new JButton("Listar");
@@ -206,13 +274,13 @@ public class TelaCarro {
 				listagem();
 			}
 		});
-		button.setBounds(308, 11, 89, 23);
+		button.setBounds(359, 336, 89, 23);
 		frame.getContentPane().add(button);
 
 		label_3 = new JLabel("Modelo:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(281, 269, 63, 14);
+		label_3.setBounds(162, 218, 63, 14);
 		frame.getContentPane().add(label_3);
 
 		button_2 = new JButton("Deletar selecionado");
@@ -236,46 +304,114 @@ public class TelaCarro {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_2.setBounds(281, 213, 171, 23);
+		button_2.setBounds(178, 336, 171, 23);
 		frame.getContentPane().add(button_2);
 		
 		label_1 = new JLabel("Ano");
 		label_1.setHorizontalAlignment(SwingConstants.LEFT);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_1.setBounds(160, 268, 71, 14);
+		label_1.setBounds(172, 245, 71, 14);
 		frame.getContentPane().add(label_1);
 		
 		fieldAno = new JTextField();
-		fieldAno.setBounds(188, 265, 86, 20);
+		fieldAno.setBounds(209, 243, 86, 20);
 		frame.getContentPane().add(fieldAno);
 		fieldAno.setColumns(10);
 		
 		label_5 = new JLabel("Cor: ");
 		label_5.setHorizontalAlignment(SwingConstants.LEFT);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_5.setBounds(10, 309, 71, 14);
+		label_5.setBounds(10, 245, 71, 14);
 		frame.getContentPane().add(label_5);
 		
 		fieldCor = new JTextField();
 		fieldCor.setFont(new Font("Dialog", Font.PLAIN, 12));
 		fieldCor.setColumns(10);
-		fieldCor.setBounds(37, 305, 105, 20);
+		fieldCor.setBounds(47, 242, 105, 20);
 		frame.getContentPane().add(fieldCor);
 		
 		label_6 = new JLabel("Valor");
 		label_6.setHorizontalAlignment(SwingConstants.LEFT);
 		label_6.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_6.setBounds(149, 310, 71, 14);
+		label_6.setBounds(359, 218, 71, 14);
 		frame.getContentPane().add(label_6);
 		
 		fieldValor = new JTextField();
 		fieldValor.setColumns(10);
-		fieldValor.setBounds(188, 307, 86, 20);
+		fieldValor.setBounds(394, 215, 86, 20);
 		frame.getContentPane().add(fieldValor);
 		
 		modeloComboBox = new JComboBox();
-		modeloComboBox.setBounds(326, 266, 140, 22);
+		modeloComboBox.setBounds(209, 215, 140, 22);
 		frame.getContentPane().add(modeloComboBox);
+		
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new TitledBorder(
+						new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Foto",
+						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(490, 202, 102, 105);
+		frame.getContentPane().add(panel);
+		
+		label_7 = new JLabel("sem foto");
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setBounds(10, 21, 78, 73);
+		panel.add(label_7);
+		
+		button_3 = new JButton("Buscar foto");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fieldPlaca.getText().isEmpty()) {
+					label.setText("selecione uma pessoa");
+					return;
+				}
+				File file = selecionarArquivoFoto();
+				if (file == null)
+					return; 
+
+				try {
+					buffer = ImageIO.read(file);
+					ImageIcon icon = new ImageIcon(
+							buffer.getScaledInstance(buffer.getWidth(), buffer.getHeight(), Image.SCALE_DEFAULT));
+					icon.setImage(icon.getImage().getScaledInstance(label_7.getWidth(), label_7.getHeight(), 1));
+					label_7.setIcon(icon);
+					label.setText("Precisa atualizar/criar carro para salvar a foto");
+				} catch (IOException ex) {
+					label.setText(ex.getMessage());
+				}
+			
+			}
+		});
+		button_3.setBounds(602, 215, 108, 23);
+		frame.getContentPane().add(button_3);
+		
+		button_4 = new JButton("Limpar foto");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+						buffer = null;
+						label_7.setIcon(null);
+						label_7.setText("sem foto");
+						label.setText("");
+						label.setText("Precisa atualizar/criar pessoa para salvar a foto");
+
+					}
+			
+		});
+		button_4.setBounds(604, 268, 105, 23);
+		frame.getContentPane().add(button_4);
+		
+		button_5 = new JButton("Atualizar");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fieldPlaca.getText().isEmpty())
+					label.setText("nome vazio");
+				else
+					atualizarPessoaSelecionada();
+			}
+		});
+		button_5.setToolTipText("atualizar pessoa ");
+		button_5.setBounds(458, 337, 95, 23);
+		frame.getContentPane().add(button_5);
 	}
 
 	public void listagem() {
@@ -317,4 +453,59 @@ public class TelaCarro {
 	        JOptionPane.showMessageDialog(frame, "Erro ao carregar fabricantes: " + e.getMessage());
 	    }
 	}
+	
+	public File selecionarArquivoFoto() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagens", "jpg", "gif");
+		chooser.setFileFilter(filter);
+		try {
+			// exibir pasta externa no Windows
+			// chooser.setCurrentDirectory(new File("c:\\"));
+			// exibir pasta interna \fotos
+			chooser.setCurrentDirectory(new File((new File(".").getCanonicalPath() + "\\src\\arquivos")));
+		} catch (IOException e) {
+		}
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.showOpenDialog(null);
+		File file = chooser.getSelectedFile();
+		return file;
+	}
+	
+	public void atualizarPessoaSelecionada() {
+		try {
+			 String placa = fieldPlaca.getText();
+			    
+		    Modelo modeloObj = Fachada.localizarModelo(modeloComboBox.getSelectedItem().toString());
+		    String nomeModelo = modeloObj.getNome();  
+		    
+		    String anoString = fieldAno.getText();
+		    int ano = Integer.parseInt(anoString);
+		    
+		    String cor = fieldCor.getText();
+		    
+		    String valorString = fieldValor.getText();
+
+		    Double valor = Double.parseDouble(valorString.replace(",", "."));
+		    
+		    Fachada.atualizarCarro(placa, cor, valor, ano);
+		    Fachada.adicionarCarroDeModelo(placa, nomeModelo);
+			byte[] bytesfoto = null;
+			if (buffer != null)
+				try {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					ImageIO.write(buffer, "jpg", baos);
+					bytesfoto = baos.toByteArray();
+					baos.close();
+				} catch (IOException ex1) {
+					label.setText("problema na conversão da imagem em bytes");
+				}
+		    
+		    Fachada.trocaFotoCarro(bytesfoto, placa);
+		    label.setText("Carro atualizado");
+		    
+		} catch (Exception ex2) {
+			label.setText(ex2.getMessage());
+		}
+	}
+
 }
