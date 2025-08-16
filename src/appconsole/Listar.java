@@ -8,41 +8,31 @@ import jakarta.persistence.TypedQuery;
 import modelo.Carro;
 import modelo.Fabricante;
 import modelo.Modelo;
+import requisito.Fachada;
 
 public class Listar {
-	private EntityManager manager;
-	
+
 	public Listar() {
-		manager = Util.conectarBanco();
-		
+		Fachada.inicializar();
 		try {
 			System.out.println("\nListagem de fabricantes");
-			TypedQuery<Fabricante> query1 = manager.createQuery("select f from Fabricante f", Fabricante.class);
-			List<Fabricante> resultados1 = query1.getResultList();
-			for (Fabricante f : resultados1)
-				System.out.println(f);
+			System.out.println(Fachada.listarFabricantes());
 
 
 			System.out.println("\nListagem de modelos");
-			TypedQuery<Modelo> query2 = manager.createQuery("select m from Modelo m", Modelo.class);
-			List<Modelo> resultados2 = query2.getResultList();
-			for (Modelo m : resultados2)
-				System.out.println(m);
+			System.out.println(Fachada.listarModelos());
 
 
 			System.out.println("\nListagem de carros");
-			TypedQuery<Carro> query3 = manager.createQuery("select c from Carro c", Carro.class); 
-			List<Carro> resultados3 = query3.getResultList();
-			for (Carro c : resultados3)
-				System.out.println(c);
+			System.out.println(Fachada.listarCarros());
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		Util.fecharBanco();
+		Fachada.finalizar();
 		System.out.println("fim do programa");
 	}
-	
+
 	public static void main(String[] args) {
 		new Listar();
 	}

@@ -33,6 +33,25 @@ public class Fachada {
 	}
 
 
+	public static void TrocarModeloAoFabricante(String nomeModelo, String nomeFabricante) throws Exception{
+		try{
+			Modelo modelo = modeloDAO.read(nomeModelo);
+			Fabricante fabricante = fabricanteDAO.read(nomeFabricante);
+			if (modelo == null || fabricante == null){
+				throw new Exception("Modelo ou fabricante não encontrados");
+			}
+			fabricante.adicionarModelo(modelo);
+			modeloDAO.update(modelo);
+			fabricanteDAO.update(fabricante);
+			DAO.commit();
+
+		}catch (Exception e){
+			throw e;
+		}
+	}
+
+
+
 	public static void cadastrarCarro(String placa, int ano, String cor, double valor) throws Exception{
 		DAO.begin();
 		Carro carro = carroDAO.read(placa);
@@ -60,18 +79,19 @@ public class Fachada {
 		DAO.commit();
 	}
 
-	public static void cadastrarModelo(String nome) throws Exception{
+	public static void cadastrarModelo(String nome) throws Exception {
 		DAO.begin();
-		Modelo m  = modeloDAO.read(nome);
-		if (m!=null) {
+		Modelo m = modeloDAO.read(nome);
+		if (m != null) {
 			DAO.rollback();
-			throw new Exception("Modelo ja cadastrado: "+ nome);
+			throw new Exception("Modelo ja cadastrado: " + nome);
 		}
 		Modelo novo_modelo = new Modelo(nome);
 
 		modeloDAO.create(novo_modelo);
 		DAO.commit();
 	}
+
 	public static void excluirModelo(String nome) throws Exception{
 		DAO.begin();
 		Modelo modelo =  modeloDAO.read(nome);
@@ -92,9 +112,9 @@ public class Fachada {
 			DAO.rollback();
 			throw new Exception("Fabricante ja cadastrado:" + nome);
 		}
-		fabricante = new Fabricante(nome);
+		Fabricante f = new Fabricante(nome);
 
-		fabricanteDAO.create(fabricante);
+		fabricanteDAO.create(f);
 		DAO.commit();
 	}
 	
@@ -147,41 +167,57 @@ public class Fachada {
 	}
 
 
-	public static void removerCarroDeModelo(String placa,String nomeModelo){
+	public static void removerCarroDeModelo(String placa, String nomeModelo) throws Exception {
 		DAO.begin();
-		Modelo modelo = modeloDAO.read(nomeModelo);
-		List<Carro> carros = modelo.getLista_de_carros();
-		Carro c ;
-		for (Carro carro : carros) {
-			if (carro.getPlaca().equals(placa)) {
-				c = carro;
+		try {
+			Modelo modelo = modeloDAO.read(nomeModelo);
+			Carro c = null;
+
+			for (Carro carro : modelo.getLista_de_carros()) {
+				if (carro.getPlaca().equals(placa)) {
+					c = carro;
+					break;
+				}
 			}
-		}
-		if(c==null){
+
+			if (c == null) {
+				DAO.rollback();
+			} else {
+				modelo.getLista_de_carros().remove(c);
+				modeloDAO.update(modelo);
+
+
+				carroDAO.update(c);
+
+				DAO.commit();
+			}
+		} catch (Exception ex) {
 			DAO.rollback();
-
+			throw ex;
 		}
-		else {
-			modelo.getLista_de_carros().remove(c);
-			DAO.commit();
-		}
-
-
 	}
 
 	public static void adicionarCarroDeModelo(String placa,String nomeModelo)throws Exception{
 		DAO.begin();
-		Modelo modelo = modeloDAO.read(nomeModelo);
-		if(modelo==null){
+		try {
+			Modelo modelo = modeloDAO.read(nomeModelo);
+			if (modelo == null) {
+				DAO.rollback();
+				throw new Exception("Modelo não pode ser encontrado");
+			}
+			Carro carro = carroDAO.read(placa);
+			if (carro == null) {
+				DAO.rollback();
+				throw new Exception("Carro não pode ser encontrado");
+			}
+			modelo.getLista_de_carros().add(carro);
+			modeloDAO.update(modelo);
+			carroDAO.update(carro);
+			DAO.commit();
+		}catch(Exception ex){
 			DAO.rollback();
-			throw new Exception("Modelo não pode ser encontrado");
+			throw ex;
 		}
-		Carro carro = carroDAO.read(placa);
-		if (carro==null) {
-			DAO.rollback();
-			throw new Exception("Carro não pode ser encontrado");
-		}
-		modelo.getLista_de_carros().add(carro);
 		DAO.commit();
 	}
 
