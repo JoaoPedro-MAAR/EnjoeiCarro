@@ -37,7 +37,7 @@ public class ModeloDAO extends DAO<Modelo> {
 
 		try {
 			TypedQuery<Modelo> query = manager.createQuery("select m from Modelo m where size(m.lista_de_carros) > :n", Modelo.class);
-			query.setParameter("n", 2);
+			query.setParameter("n", numeroDeCarros);
 			List<Modelo> modelos = query.getResultList();
 			return modelos;
 

@@ -34,11 +34,11 @@ public class Cadastrar {
 
 			try{
 				System.out.println("Associando modelos a fabricantes.");
-				Fachada.TrocarModeloAoFabricante("Corolla","Toyota");
-				Fachada.TrocarModeloAoFabricante("Hilux", "Toyota");
-				Fachada.TrocarModeloAoFabricante("Fiesta", "Ford");
-				Fachada.TrocarModeloAoFabricante("Focus", "Ford");
-				Fachada.TrocarModeloAoFabricante("Onix", "Chevrolet");
+				Fachada.trocarModeloAoFabricante("Corolla","Toyota");
+				Fachada.trocarModeloAoFabricante("Hilux", "Toyota");
+				Fachada.trocarModeloAoFabricante("Fiesta", "Ford");
+				Fachada.trocarModeloAoFabricante("Focus", "Ford");
+				Fachada.trocarModeloAoFabricante("Onix", "Chevrolet");
 
 			}catch (Exception e) {
 				System.out.println(e.getMessage());

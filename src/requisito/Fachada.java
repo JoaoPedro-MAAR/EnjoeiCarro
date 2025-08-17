@@ -269,7 +269,7 @@ public class Fachada {
 
 
 	public static List<Modelo> procurarModeloPorqntdDeCarro(int qntd){
-		if (qntd>0)
+		if (qntd>-1)
 			return modeloDAO.getModeloWithGTThan(qntd);
 		return null;
 	}
