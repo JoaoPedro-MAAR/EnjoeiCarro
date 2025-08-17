@@ -33,7 +33,7 @@ public class Fachada {
 	}
 
 
-	public static void TrocarModeloAoFabricante(String nomeModelo, String nomeFabricante) throws Exception{
+	public static void trocarModeloAoFabricante(String nomeModelo, String nomeFabricante) throws Exception{
 		try{
 			Modelo modelo = modeloDAO.read(nomeModelo);
 			Fabricante fabricante = fabricanteDAO.read(nomeFabricante);
@@ -49,6 +49,36 @@ public class Fachada {
 			throw e;
 		}
 	}
+
+	public static void trocarModeloAoFabricante(int idModelo, String nomeFabricante) throws Exception{
+		try{
+			Modelo modelo = modeloDAO.getByid(idModelo);
+			Fabricante fabricante = fabricanteDAO.read(nomeFabricante);
+			if (modelo == null || fabricante == null){
+				throw new Exception("Modelo ou fabricante não encontrado");
+			}
+			fabricante.adicionarModelo(modelo);
+			modeloDAO.update(modelo);
+			fabricanteDAO.update(fabricante);
+			DAO.commit();
+		}catch (Exception e){
+			throw e;
+		}
+	}
+
+
+
+//
+//	public static void alterarModelo(int id,  String nomeModelo, String nomeFabricante) throws Exception{
+//		try{
+//			Modelo modelo = modeloDAO.getByid(id);
+//			if mod
+//			Fabricante fabricante = fabricanteDAO.read(nomeFabricante);
+//			if (modelo == null || fabricante == null){
+//				throw new Exception("Fabricante ou modelo não encontrado");
+//			}
+//		}
+//	}
 
 
 
@@ -190,6 +220,50 @@ public class Fachada {
 		carroDAO.update(carro);
 		DAO.commit();
 		
+	}
+
+
+	public static void alterarNomeFabricante(int id,String nome) throws Exception {
+		DAO.begin();
+		Fabricante fabricante = fabricanteDAO.getByid(id);
+		if (fabricante==null) {
+			throw new Exception("Fabricante inexistente para alterar " + id);
+		}
+		fabricante.setNome(nome);
+		fabricanteDAO.update(fabricante);
+		DAO.commit();
+	}
+	
+	public static void alterarNomeModelo(int id, String nomeNovo) throws Exception {
+		DAO.begin();
+		Modelo modelo = modeloDAO.getByid(id);
+
+		if(modelo == null){
+			throw new Exception("Modelo inexistente para definir trocar o nome ");
+		}
+
+		String nomeAntigo = modelo.getNome();
+
+
+
+		if(nomeAntigo.equals(nomeNovo)) {
+			return;
+		}
+
+		Modelo modeloNovo = modeloDAO.read(nomeNovo);
+		if(modeloNovo != null) {
+			throw new Exception("Ja existe um modelo com esse nome");
+		}
+
+		modelo.setNome(nomeNovo);
+		modeloDAO.update(modelo);
+		DAO.commit();
+	
+	}
+
+
+	public static Modelo localizarModelo(int id) throws Exception {
+		return modeloDAO.getByid(id);
 	}
 
 

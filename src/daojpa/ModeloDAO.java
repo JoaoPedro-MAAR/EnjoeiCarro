@@ -18,6 +18,17 @@ public class ModeloDAO extends DAO<Modelo> {
 			return null;
 		}
 	}
+	
+	public Modelo getByid(int id) {
+		try {
+			TypedQuery<Modelo> q = manager.createQuery("select c from Modelo c where c.id=:id",Modelo.class);
+			q.setParameter("id", id);
+			Modelo c =  q.getSingleResult();
+			return c;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
 
 
 

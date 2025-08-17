@@ -13,8 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -27,6 +31,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Carro;
 import modelo.Fabricante;
 import modelo.Modelo;
 import requisito.Fachada;
@@ -45,6 +50,9 @@ public class TelaModelo {
 	private JTextField fieldnomeModelo;
 	private JLabel label_2;
 	private JComboBox fabricantecomboBox;
+	private JButton atualizarButton;
+	private JLabel label_3;
+	private JLabel labelID;
 
 	/**
 	 * Launch the application.
@@ -116,8 +124,28 @@ public class TelaModelo {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (table.getSelectedRow() >= 0)
-					label_4.setText("selecionado="+ table.getValueAt( table.getSelectedRow(), 0));
+				try {
+					if (table.getSelectedRow() >= 0)
+						label_4.setText("selecionado="+ table.getValueAt( table.getSelectedRow(), 0));
+					String nomeModelo = (String) table.getValueAt(table.getSelectedRow(), 1);
+					Modelo modelo = Fachada.localizarModelo(nomeModelo);
+					labelID.setText(Integer.toString(modelo.getID()));
+					fieldnomeModelo.setText(modelo.getNome());
+					Fabricante fabricanteModelo = modelo.getFabricante();
+					if(fabricanteModelo != null) {
+						String nomeFabricante = fabricanteModelo.getNome();
+						fabricantecomboBox.setSelectedItem(nomeFabricante);
+
+						
+					}else {
+						fabricantecomboBox.setSelectedIndex(-1);
+					}
+					
+				}catch (Exception ex) {
+					label.setText(ex.getMessage());
+				}
+					
+				
 			}
 		});
 		table.setGridColor(Color.BLACK);
@@ -155,7 +183,7 @@ public class TelaModelo {
 					}
 					String fabricanteNome = fabricante.getNome();
 				    Fachada.cadastrarModelo(nomeModelo);
-				    Fachada.TrocarModeloAoFabricante(nomeModelo, fabricanteNome);
+				    Fachada.trocarModeloAoFabricante(nomeModelo, fabricanteNome);
 				    listagem();
 				    label.setText("Modelo cadastrado");
 
@@ -180,7 +208,7 @@ public class TelaModelo {
 				listagem();
 			}
 		});
-		button.setBounds(308, 11, 89, 23);
+		button.setBounds(527, 266, 166, 23);
 		frame.getContentPane().add(button);
 
 		button_2 = new JButton("Deletar selecionado");
@@ -208,21 +236,58 @@ public class TelaModelo {
 		frame.getContentPane().add(button_2);
 		
 		label_1 = new JLabel("Nome:  ");
-		label_1.setBounds(34, 241, 43, 14);
+		label_1.setBounds(107, 241, 43, 14);
 		frame.getContentPane().add(label_1);
 		
 		fieldnomeModelo = new JTextField();
-		fieldnomeModelo.setBounds(71, 238, 86, 20);
+		fieldnomeModelo.setBounds(150, 238, 86, 20);
 		frame.getContentPane().add(fieldnomeModelo);
 		fieldnomeModelo.setColumns(10);
 		
 		label_2 = new JLabel("Nome Fabricante");
-		label_2.setBounds(168, 241, 81, 14);
+		label_2.setBounds(246, 241, 81, 14);
 		frame.getContentPane().add(label_2);
 		
 		fabricantecomboBox = new JComboBox();
-		fabricantecomboBox.setBounds(259, 237, 115, 22);
+		fabricantecomboBox.setBounds(337, 237, 115, 22);
 		frame.getContentPane().add(fabricantecomboBox);
+		
+		atualizarButton = new JButton("Atualizar modelo");
+		atualizarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					fabricantecomboBox.getSelectedItem().toString();
+					int id = Integer.parseInt(labelID.getText());
+					String nomeModelo = fieldnomeModelo.getText();
+					Fabricante fabricante = Fachada.localizarFabricante(fabricantecomboBox.getSelectedItem().toString());
+					if (fabricante == null) {
+					    System.out.println("Erro: Fabricante não localizado.");
+					    JOptionPane.showMessageDialog(null, "Fabricante não localizado!");
+					}
+					String fabricanteNome = fabricante.getNome();
+				    Fachada.alterarNomeModelo(id, nomeModelo);
+				    Fachada.trocarModeloAoFabricante(id, fabricanteNome);
+				    listagem();
+				    label.setText("Modelo Atualizado");
+				}catch (Exception x) {
+					label.setText(x.getMessage());
+					System.out.println(x.getStackTrace());
+				
+				}
+				
+			}
+		});
+		atualizarButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		atualizarButton.setBounds(529, 300, 166, 23);
+		frame.getContentPane().add(atualizarButton);
+		
+		label_3 = new JLabel("ID: ");
+		label_3.setBounds(35, 241, 46, 14);
+		frame.getContentPane().add(label_3);
+		
+		labelID = new JLabel("");
+		labelID.setBounds(52, 241, 46, 14);
+		frame.getContentPane().add(labelID);
 	}
 	
 	public void carregarCombobox() {

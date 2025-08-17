@@ -4,6 +4,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import modelo.Carro;
 import modelo.Fabricante;
+import modelo.Modelo;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -29,6 +30,18 @@ public class FabricanteDAO extends DAO<Fabricante>{
 		System.out.println(query);
 
 		return query.getResultList();
+	}
+
+
+	public Fabricante getByid (int id){
+		try {
+			TypedQuery<Fabricante> q = manager.createQuery("select c from Fabricante c where c.id=:id",Fabricante.class);
+			q.setParameter("id", id);
+			Fabricante c =  q.getSingleResult();
+			return c;
+		}catch(NoResultException e){
+			return null;
+		}
 	}
 
 }

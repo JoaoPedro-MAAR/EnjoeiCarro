@@ -43,6 +43,9 @@ public class TelaFabricante {
 	private JLabel label_4;
 	private JLabel label_1;
 	private JTextField fieldnomefabricante;
+	private JLabel label_2;
+	private JLabel labelID;
+	private JButton atualizarButton;
 
 	/**
 	 * Launch the application.
@@ -112,9 +115,21 @@ public class TelaFabricante {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (table.getSelectedRow() >= 0)
-					label_4.setText("selecionado="+ table.getValueAt( table.getSelectedRow(), 0));
-			}
+				try {
+					if (table.getSelectedRow() >= 0)
+						label_4.setText("selecionado="+ table.getValueAt( table.getSelectedRow(), 0));
+					String nomeModelo = (String) table.getValueAt(table.getSelectedRow(), 1);
+					Fabricante fabricante = Fachada.localizarFabricante(nomeModelo);
+					labelID.setText(Integer.toString(fabricante.getID()));
+					fieldnomefabricante.setText(nomeModelo);
+					
+
+					
+				}catch (Exception ex) {
+					label.setText(ex.getMessage());
+				}
+					
+				}
 		});
 		table.setGridColor(Color.BLACK);
 		table.setRequestFocusEnabled(false);
@@ -167,7 +182,7 @@ public class TelaFabricante {
 				listagem();
 			}
 		});
-		button.setBounds(308, 11, 89, 23);
+		button.setBounds(524, 270, 171, 23);
 		frame.getContentPane().add(button);
 
 		button_2 = new JButton("Deletar selecionado");
@@ -195,13 +210,41 @@ public class TelaFabricante {
 		frame.getContentPane().add(button_2);
 		
 		label_1 = new JLabel("Nome:  ");
-		label_1.setBounds(34, 241, 43, 14);
+		label_1.setBounds(118, 225, 43, 14);
 		frame.getContentPane().add(label_1);
 		
 		fieldnomefabricante = new JTextField();
-		fieldnomefabricante.setBounds(71, 238, 86, 20);
+		fieldnomefabricante.setBounds(171, 222, 86, 20);
 		frame.getContentPane().add(fieldnomefabricante);
 		fieldnomefabricante.setColumns(10);
+		
+		label_2 = new JLabel("ID:");
+		label_2.setBounds(21, 225, 46, 14);
+		frame.getContentPane().add(label_2);
+		
+		labelID = new JLabel("");
+		labelID.setBounds(41, 225, 46, 14);
+		frame.getContentPane().add(labelID);
+		
+		atualizarButton = new JButton("Atualizar");
+		atualizarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				Integer id = Integer.parseInt(labelID.getText());
+				String novoNome = fieldnomefabricante.getText();
+				Fachada.alterarNomeFabricante(id, novoNome);
+				label.setText("Fabricante atualizado");
+				listagem();
+				}catch (Exception ex) {
+					System.out.println(ex.getStackTrace());
+					label.setText(ex.getMessage());
+				}
+				
+			}
+		});
+		atualizarButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		atualizarButton.setBounds(524, 304, 171, 23);
+		frame.getContentPane().add(atualizarButton);
 	}
 	
 
