@@ -84,6 +84,24 @@ public class Fachada {
 
 	public static void cadastrarCarro(String placa, int ano, String cor, double valor) throws Exception{
 		DAO.begin();
+		if (placa == null || placa.isEmpty()){
+			DAO.rollback();
+			throw new Exception("Placa não poder nula nem vazia");
+
+		}
+		if  (cor == null || cor.isEmpty()){
+			DAO.rollback();
+			throw new Exception("Cor não poder ser nula nem vazia");
+
+		}
+		if (ano < 1886){
+			DAO.rollback();
+			throw new Exception("Ano não poder ser menor que 1886");
+		}
+		if (valor <= 0){
+			DAO.rollback();
+			throw new Exception("Valor não poder ser menor que 0");
+		}
 		Carro carro = carroDAO.read(placa);
 		if (carro!=null) {
 			DAO.rollback();
@@ -111,6 +129,10 @@ public class Fachada {
 
 	public static void cadastrarModelo(String nome) throws Exception {
 		DAO.begin();
+		if (nome == null || nome.isEmpty()){
+			DAO.rollback();
+			throw new Exception("Nome do modelo não pode ser vazio ou nulo");
+		}
 		Modelo m = modeloDAO.read(nome);
 		if (m != null) {
 			DAO.rollback();
@@ -137,6 +159,10 @@ public class Fachada {
 	
 	public static void cadastrarFabricante(String nome) throws Exception{
 		DAO.begin();
+		if (nome == null || nome.isEmpty()){
+			DAO.rollback();
+			throw new Exception("Nome do fabricante não pode ser vazio ou nulo");
+		}
 		Fabricante fabricante = fabricanteDAO.read(nome);
 		if (fabricante!=null) {
 			DAO.rollback();
@@ -201,7 +227,7 @@ public class Fachada {
 		}
 		if (valor != null)
 			carro.setValor(valor);
-		if (ano > 0 && ano <= 9999)
+		if (ano > 1885 && ano <= 9999)
 			carro.setAno(ano);
 		carroDAO.update(carro);
 		DAO.commit();

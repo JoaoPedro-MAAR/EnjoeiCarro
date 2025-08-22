@@ -1,15 +1,15 @@
-22:37:11,698  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
-22:37:11,702  INFO Util:35 - sgbd => postgresql
-22:37:11,702  INFO Util:36 - banco => EnjoeiDAO
-22:37:11,702  INFO Util:37 - ip => localhost
-22:37:11,702  INFO Util:42 - ----configurando postgresql
-22:37:11,728 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
-22:37:11,835  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
-22:37:11,886  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
-22:37:11,923 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
-22:37:11,924  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
-22:37:12,162  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
-22:37:12,433  INFO pooling:157 - HHH10001005: Database info:
+15:47:26,549  INFO Util:28 - ----conectar banco - lendo arquivo de propriedades 
+15:47:26,553  INFO Util:35 - sgbd => postgresql
+15:47:26,553  INFO Util:36 - banco => EnjoeiDAO
+15:47:26,553  INFO Util:37 - ip => localhost
+15:47:26,553  INFO Util:42 - ----configurando postgresql
+15:47:26,575 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+15:47:26,679  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+15:47:26,738  INFO Version:44 - HHH000412: Hibernate ORM core version 6.6.5.Final
+15:47:26,771 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+15:47:26,772  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+15:47:27,005  WARN pooling:86 - HHH10001002: Using built-in connection pool (not intended for production use)
+15:47:27,343  INFO pooling:157 - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/EnjoeiDAO]
 	Database driver: org.postgresql.Driver
 	Database version: 17.2
@@ -17,26 +17,66 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: 1
 	Maximum pool size: 20
-22:37:13,474  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-22:37:13,490  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@62e64c79] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-22:37:14,039 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0
-22:37:22,472 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where (select count(*) from Carro l1_0 where m1_0.id=l1_0.modelo_id)>?
-22:37:22,473 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
-22:37:28,218 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where (select count(*) from Carro l1_0 where m1_0.id=l1_0.modelo_id)>?
-22:37:28,219 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
-22:37:32,528 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where (select count(*) from Carro l1_0 where m1_0.id=l1_0.modelo_id)>?
-22:37:32,528 TRACE bind:24 - binding parameter (1:INTEGER) <- [0]
-22:37:40,474 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
-22:37:40,474 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Toyota]
-22:37:43,299 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
-22:37:43,299 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Ford]
-22:37:45,602 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
-22:37:45,603 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Chevrolet]
-22:37:48,411 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 join Modelo m1_0 on m1_0.id=c1_0.modelo_id join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where f1_0.nome=?
-22:37:48,412 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Ford]
-22:37:54,884 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.ano=?
-22:37:54,884 TRACE bind:24 - binding parameter (1:INTEGER) <- [2022]
-22:37:58,913 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.ano=?
-22:37:58,914 TRACE bind:24 - binding parameter (1:INTEGER) <- [2020]
-22:38:05,207 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.ano=?
-22:38:05,207 TRACE bind:24 - binding parameter (1:INTEGER) <- [2000]
+15:47:28,471  INFO JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:47:28,495  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@600c823b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+15:47:29,025 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0
+15:47:29,048 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:47:29,048 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:47:29,061 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:47:29,062 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+15:47:29,062 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:47:29,063 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+15:47:29,204 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0
+15:47:35,871 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:47:35,871 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:47:41,250 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:47:41,250 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:47:56,994 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:47:56,995 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:47:56,996 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:47:56,996 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:00,059 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:48:00,060 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:48:00,061 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:48:00,061 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:07,634 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:48:07,634 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:48:07,635 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:48:07,635 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:07,650 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.placa=?
+15:48:07,651 TRACE bind:24 - binding parameter (1:VARCHAR) <- [A]
+15:48:07,665 DEBUG SQL:135 - insert into Carro (ano,cor,foto,modelo_id,valor,placa) values (?,?,?,?,?,?)
+15:48:07,666 TRACE bind:24 - binding parameter (1:INTEGER) <- [1886]
+15:48:07,667 TRACE bind:24 - binding parameter (2:VARCHAR) <- [QA]
+15:48:07,667 TRACE bind:35 - binding parameter (3:VARBINARY) <- [null]
+15:48:07,667 TRACE bind:35 - binding parameter (4:INTEGER) <- [null]
+15:48:07,667 TRACE bind:24 - binding parameter (5:DOUBLE) <- [1.0]
+15:48:07,667 TRACE bind:24 - binding parameter (6:VARCHAR) <- [A]
+15:48:07,679 DEBUG SQL:135 - select m1_0.id,m1_0.fabricante_id,m1_0.nome from Modelo m1_0 where m1_0.nome=?
+15:48:07,679 TRACE bind:24 - binding parameter (1:VARCHAR) <- [Corolla]
+15:48:07,680 DEBUG SQL:135 - select f1_0.id,f1_0.nome from Fabricante f1_0 where f1_0.id=?
+15:48:07,680 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:07,681 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.placa=?
+15:48:07,682 TRACE bind:24 - binding parameter (1:VARCHAR) <- [A]
+15:48:07,690 DEBUG SQL:135 - update Carro set ano=?,cor=?,foto=?,modelo_id=?,valor=? where placa=?
+15:48:07,690 TRACE bind:24 - binding parameter (1:INTEGER) <- [1886]
+15:48:07,691 TRACE bind:24 - binding parameter (2:VARCHAR) <- [QA]
+15:48:07,691 TRACE bind:35 - binding parameter (3:VARBINARY) <- [null]
+15:48:07,691 TRACE bind:24 - binding parameter (4:INTEGER) <- [1]
+15:48:07,691 TRACE bind:24 - binding parameter (5:DOUBLE) <- [1.0]
+15:48:07,691 TRACE bind:24 - binding parameter (6:VARCHAR) <- [A]
+15:48:07,700 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0 where c1_0.placa=?
+15:48:07,700 TRACE bind:24 - binding parameter (1:VARCHAR) <- [A]
+15:48:07,701 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,701 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:07,703 DEBUG SQL:135 - select c1_0.placa,c1_0.ano,c1_0.cor,c1_0.foto,c1_0.modelo_id,c1_0.valor from Carro c1_0
+15:48:07,704 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,704 TRACE bind:24 - binding parameter (1:INTEGER) <- [1]
+15:48:07,705 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,706 TRACE bind:24 - binding parameter (1:INTEGER) <- [2]
+15:48:07,706 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,707 TRACE bind:24 - binding parameter (1:INTEGER) <- [3]
+15:48:07,707 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,708 TRACE bind:24 - binding parameter (1:INTEGER) <- [4]
+15:48:07,708 DEBUG SQL:135 - select m1_0.id,f1_0.id,f1_0.nome,m1_0.nome from Modelo m1_0 left join Fabricante f1_0 on f1_0.id=m1_0.fabricante_id where m1_0.id=?
+15:48:07,710 TRACE bind:24 - binding parameter (1:INTEGER) <- [5]

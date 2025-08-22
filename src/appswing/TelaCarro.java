@@ -258,6 +258,7 @@ public class TelaCarro {
 				    System.out.println("Erro: Modelo não localizado.");
 				    JOptionPane.showMessageDialog(null, "Modelo não localizado!");
 				} catch (Exception e1) {
+					label.setText(e1.getMessage());
 					System.out.println("Cai nessa exceção");
 					e1.printStackTrace();
 				}
